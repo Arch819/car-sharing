@@ -1,0 +1,146 @@
+:root {
+  --bg-color: #CDCDCD;
+  --bg-modal: #FFFFFF;
+  --bg-btn: #3470FF;
+  --bg-btn-hover: #0B44CD;
+  --bg-backdrop: #12141780;
+
+  --color-text-btn: #FFFFFF;
+  --color-text-primary: #121417;
+  --color-text-primary50: #12141780;
+  --color-text-primary20: #12141733;
+  --color-text-secondary: #3470FF;
+  --color-text-conditions: #363535;
+  --color-text-label: #8A8A89;
+  --color-text-btn-hover: #0B44CD;
+
+  --stroke-color: #FFFFFF;
+  --fill-color: #3470FF;
+  --stroke-close: #121417;
+
+  --transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-weight: 600;
+  font-style: normal;
+  src:
+    local('Manrope'),
+    url('./fonts/semibold600/Manrope-Semibold.woff2') format('woff2'),
+    url('./fonts/semibold600/Manrope-Semibold.woff') format('woff'),
+    url('./fonts/semibold600/Manrope-Semibold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-weight: 500;
+  font-style: normal;
+  src:
+    local('Manrope'),
+    url('./fonts/medium500/Manrope-Medium.woff2') format('woff2'),
+    url('./fonts/medium500/Manrope-Medium.woff') format('woff'),
+    url('./fonts/medium500/Manrope-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Manrope';
+  font-weight: 400;
+  font-style: normal;
+  src:
+    local('Manrope'),
+    url('./fonts/regular400/Manrope-Regular.woff2') format('woff2'),
+    url('./fonts/regular400/Manrope-Regular.woff') format('woff'),
+    url('./fonts/regular400/Manrope-Regular.ttf') format('truetype');
+}
+
+html {
+  height: 100%;
+
+}
+
+body {
+  margin: 0;
+  font-family: Manrope, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: Manrope,
+    sans-serif;
+}
+
+
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.btn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background: var(--bg-btn);
+  border-color: transparent;
+  border-radius: 12px;
+
+  color: var(--color-text-btn);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  transition: background var(--transition);
+}
+
+.btn:is(:hover, :focus) {
+  background: var(--bg-btn-hover);
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.container {
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+@media screen and (min-width: 778px) {
+  .container {
+    max-width: 778px;
+    padding: 0 86px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 128px;
+  }
+}
