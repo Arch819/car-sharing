@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/car-sharing/static/css/main.ba22cc48.css",
+    "main.js": "/car-sharing/static/js/main.138c1b4e.js",
+    "static/media/source.png": "/car-sharing/static/media/source.8f74582bbc528af1dc8b.png",
+    "static/media/Manrope-Regular.ttf": "/car-sharing/static/media/Manrope-Regular.892a89f7015e492f6e21.ttf",
+    "static/media/Manrope-Medium.ttf": "/car-sharing/static/media/Manrope-Medium.101a50f661e51b761ca1.ttf",
+    "static/media/Manrope-Semibold.ttf": "/car-sharing/static/media/Manrope-Semibold.6dbafb64c6f4e28f8cc1.ttf",
+    "static/media/Manrope-Medium.woff": "/car-sharing/static/media/Manrope-Medium.4e55dc20921a95ef83f4.woff",
+    "static/media/Manrope-Regular.woff": "/car-sharing/static/media/Manrope-Regular.2046a49b5fa996c43f44.woff",
+    "static/media/Manrope-Semibold.woff": "/car-sharing/static/media/Manrope-Semibold.f4e54434d986b1395b3b.woff",
+    "static/media/Manrope-Medium.woff2": "/car-sharing/static/media/Manrope-Medium.9cccfee0f8d3153ae547.woff2",
+    "static/media/Manrope-Regular.woff2": "/car-sharing/static/media/Manrope-Regular.cb78aabfaaf5d95c8665.woff2",
+    "static/media/Manrope-Semibold.woff2": "/car-sharing/static/media/Manrope-Semibold.0d44fe833dd4c7229544.woff2",
+    "static/media/sprite.svg": "/car-sharing/static/media/sprite.ebab4dec030be35d6ee36fa4b4cfebac.svg",
+    "index.html": "/car-sharing/index.html",
+    "main.ba22cc48.css.map": "/car-sharing/static/css/main.ba22cc48.css.map",
+    "main.138c1b4e.js.map": "/car-sharing/static/js/main.138c1b4e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ba22cc48.css",
+    "static/js/main.138c1b4e.js"
+  ]
+}
