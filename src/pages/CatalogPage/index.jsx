@@ -4,7 +4,7 @@ import Filters from "../../components/Filters";
 import CarsList from "../../components/AdvertsList";
 import { LoadMoreBtn } from "./CatalogPage.styled";
 import { useDispatch, useSelector } from "react-redux";
-import { selectAdverts, selectPage } from "../../store/adverts/selectors";
+import { selectAdverts } from "../../store/adverts/selectors";
 import { getAllAdvertsThunk } from "../../store/adverts/advertsThunk";
 import { selectIsLoading } from "store/appState/appStateSelectors";
 
