@@ -4,6 +4,7 @@
   --bg-btn: #3470FF;
   --bg-btn-hover: #0B44CD;
   --bg-backdrop: #12141780;
+  --bg-home: #121417aa;
 
   --color-text-btn: #FFFFFF;
   --color-text-primary: #121417;
@@ -13,6 +14,10 @@
   --color-text-conditions: #363535;
   --color-text-label: #8A8A89;
   --color-text-btn-hover: #0B44CD;
+  --color-text-home: #3470FF;
+  /* --color-text-home: #0B44CD; */
+
+  --border-btn: 1px solid #121417;
 
   --stroke-color: #FFFFFF;
   --fill-color: #3470FF;
@@ -86,6 +91,7 @@ body {
   font-family: Manrope, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text-primary);
 }
 
 code {
@@ -119,6 +125,7 @@ button {
   padding: 0;
   margin: 0;
   border: none;
+  font-family: inherit;
 }
 
 .btn {
@@ -150,6 +157,14 @@ ul {
   max-width: 375px;
   margin: 0 auto;
   padding: 0 20px;
+}
+
+.home {
+  height: 100vh;
+  background-image: linear-gradient(var(--bg-home), var(--bg-home)), url(./images/source.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
 }
 
 @media screen and (min-width: 778px) {

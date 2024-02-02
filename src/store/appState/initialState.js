@@ -1,4 +1,4 @@
 export const initialState = {
-  isLoader: false,
-  isError: "",
+  isLoading: false,
+  error: null,
 };
