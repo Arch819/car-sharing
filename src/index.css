@@ -15,7 +15,6 @@
   --color-text-label: #8A8A89;
   --color-text-btn-hover: #0B44CD;
   --color-text-home: #3470FF;
-  /* --color-text-home: #0B44CD; */
 
   --border-btn: 1px solid #121417;
 
@@ -82,8 +81,6 @@ body {
   position: relative;
   overflow-y: scroll;
 }
-
-
 
 body {
   width: 100%;

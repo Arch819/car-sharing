@@ -11,7 +11,6 @@ export const getAllAdvertsThunk = createAsyncThunk(
       }
       return data;
     } catch (error) {
-      console.log(error);
       return rejectWithValue(error.payload || error.response.data);
     }
   }
