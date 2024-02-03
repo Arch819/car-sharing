@@ -37,6 +37,9 @@ export const SelectPriceStyle = (width, isDropdownOpen) => ({
   singleValue: (provided) => ({
     ...provided,
     color: "#121417",
+     fontSize: "18px",
+    fontWeight: "500",
+    lineHeight: "1.1",
   }),
 
   dropdownIndicator: (provided, props) => ({
