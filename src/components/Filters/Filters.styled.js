@@ -33,12 +33,6 @@ export const SelectPriceStyle = (width, isDropdownOpen) => ({
     padding: "14px 8px 14px 18px",
     borderRadius: "14px",
     backgroundColor: "#FFF",
-
-    "::-webkit-scrollbar-track": {
-      marginTop: "14px",
-      marginBottom: "14px",
-      background: "#1214170D",
-    },
   }),
   singleValue: (provided) => ({
     ...provided,
@@ -81,10 +75,18 @@ export const SelectPriceStyle = (width, isDropdownOpen) => ({
     "& > div:last-child": {
       paddingBottom: "14px",
     },
-    "::-webkit-scrollbar-track": {
+
+    " ::-webkit-scrollbar": {
+      width: "8px",
+      background: "#FFF",
+    },
+    "::-webkit-scrollbar-thumb": {
+      borderRadius: "10px",
+      background: "#1214170D",
+    },
+    " ::-webkit-scrollbar-track": {
       marginTop: "14px",
       marginBottom: "14px",
-      background: "#1214170D",
     },
   }),
 });

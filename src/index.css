@@ -75,6 +75,11 @@
   background: var(--bg-btn-hover);
 }
 
+::-webkit-scrollbar-track {
+  margin-top: 80px;
+  margin-bottom: 10px
+}
+
 html,
 body {
   height: 100%;
