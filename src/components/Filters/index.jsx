@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { handleUpdateFilters } from "store/adverts/advertsSlice";
@@ -24,7 +24,6 @@ function Filters() {
 
   const [brand, setBrand] = useState(filter.make);
   const [price, setPrice] = useState(filter.rentalPrice);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleFormSubmit = (e) => {
     console.log("click");
@@ -48,14 +47,6 @@ function Filters() {
       setPrice(value);
     }
     return;
-  };
-
-  const handleMenuOpen = () => {
-    setIsDropdownOpen(true);
-  };
-
-  const handleMenuClose = () => {
-    setIsDropdownOpen(false);
   };
 
   return (
