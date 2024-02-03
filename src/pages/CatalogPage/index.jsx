@@ -27,7 +27,7 @@ function CatalogPage() {
       <div className="container">
         <Filters />
         <CarsList adverts={adverts} />
-        {!isLoading && adverts.length > 12 && (
+        {!isLoading && adverts.length >= 12 && (
           <LoadMoreBtn onClick={handleNextPage}>Load more</LoadMoreBtn>
         )}
       </div>
