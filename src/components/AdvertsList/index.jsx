@@ -1,4 +1,3 @@
-import React from "react";
 import CarItem from "../AdvertItem";
 import { CarsListStyle } from "./AdvertsList.styled";
 

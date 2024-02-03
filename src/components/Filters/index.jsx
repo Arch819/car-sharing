@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { handleUpdateFilters } from "store/adverts/advertsSlice";
 import { getFilterAdvertsThunk } from "store/adverts/advertsThunk";
 import { selectFilter } from "store/adverts/selectors";
 import { modelList } from "utils/modelList";
+import priceList from "utils/priceList";
 import {
   FormLabelStyle,
   FormLabelTextStyle,
@@ -16,7 +17,6 @@ import {
   MileageInputStyle,
   SelectPriceStyle,
 } from "./Filters.styled";
-import priceList from "utils/priceList";
 
 function Filters() {
   const dispatch = useDispatch();
@@ -26,7 +26,6 @@ function Filters() {
   const [price, setPrice] = useState(filter.rentalPrice);
 
   const handleFormSubmit = (e) => {
-    console.log("click");
     e.preventDefault();
     const filterChange = {
       make: brand,

@@ -3,7 +3,6 @@ import storage from "redux-persist/lib/storage";
 import { advertsReducer } from "./adverts/advertsSlice";
 import { appReducer } from "./appState/appStateSlice";
 import { favoritesReducer } from "./favorites/favoritesSlice";
-// import { filterReducer } from "./filter/filterSlice";
 
 const persistConfig = {
   key: "favorites",
@@ -16,5 +15,4 @@ export const reducer = {
   appState: appReducer,
   adverts: advertsReducer,
   favorites: favoritesPersistReducer,
-  // filter: filterReducer,
 };

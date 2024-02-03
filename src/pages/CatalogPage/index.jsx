@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsLoading } from "store/appState/appStateSelectors";
+import { getAllAdvertsThunk } from "../../store/adverts/advertsThunk";
+import { selectAdverts } from "../../store/adverts/selectors";
 import Section from "../../components/Section";
 import Filters from "../../components/Filters";
 import CarsList from "../../components/AdvertsList";
 import { LoadMoreBtn } from "./CatalogPage.styled";
-import { useDispatch, useSelector } from "react-redux";
-import { selectAdverts } from "../../store/adverts/selectors";
-import { getAllAdvertsThunk } from "../../store/adverts/advertsThunk";
-import { selectIsLoading } from "store/appState/appStateSelectors";
 
 function CatalogPage() {
   const [page, setPage] = useState(1);
@@ -27,7 +27,7 @@ function CatalogPage() {
       <div className="container">
         <Filters />
         <CarsList adverts={adverts} />
-        {!isLoading && (
+        {!isLoading && adverts.length > 12 && (
           <LoadMoreBtn onClick={handleNextPage}>Load more</LoadMoreBtn>
         )}
       </div>

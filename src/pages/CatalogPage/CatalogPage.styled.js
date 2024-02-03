@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LoadMoreBtn = styled("button")({
   display: "block",
-  margin: "0 auto",
+  margin: "100px auto 0",
   padding: "12px 34px",
   background: "transparent",
   transition: "color var(----transition)",

@@ -45,17 +45,11 @@ export const SelectPriceStyle = (width, isDropdownOpen) => ({
     color: "#121417",
   }),
 
-  dropdownIndicator: (provided, props) =>
-    // {
-    // console.log("props", props.selectProps.menuIsOpen);
-    ({
-      ...provided,
-      color: "#121417",
-      transform: props.selectProps.menuIsOpen
-        ? "rotate(180deg)"
-        : "rotate(0deg)",
-    }),
-  // },
+  dropdownIndicator: (provided, props) => ({
+    ...provided,
+    color: "#121417",
+    transform: props.selectProps.menuIsOpen ? "rotate(180deg)" : "rotate(0deg)",
+  }),
   indicatorSeparator: () => ({
     display: "none",
   }),
@@ -175,4 +169,5 @@ export const MileageInputStyle = styled("input")({
 
 export const FormaBtn = styled("button")({
   padding: "14px 44px",
+  alignSelf: "end",
 });

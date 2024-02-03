@@ -1,5 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import sprite from "../../images/sprite.svg";
 import Modal from "../Modal";
+import AdvertItemTitle from "../AdvertItemTitle";
+import {
+  addFavorites,
+  deleteFavorites,
+} from "../../store/favorites/favoritesSlice";
+import { selectFavorites } from "../../store/favorites/favoritesSelector";
+import { searchIsFavorite } from "../../utils/searchIsFavorite";
 import {
   BottomTextItemStyle,
   BottomTextListStyle,
@@ -7,20 +16,10 @@ import {
   HeartBtnStyle,
   HeartBtnSvgStyle,
   ImageBoxStyle,
-  ImagesStyle,
   ItemLearnMoreBtn,
   ItemPriceStyle,
   TopTextStyle,
 } from "./AdvertItem.styled";
-import sprite from "../../images/sprite.svg";
-import AdvertItemTitle from "../AdvertItemTitle";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addFavorites,
-  deleteFavorites,
-} from "../../store/favorites/favoritesSlice";
-import { selectFavorites } from "../../store/favorites/favoritesSelector";
-import { searchIsFavorite } from "../../utils/searchIsFavorite";
 
 function CarItem({ data }) {
   const [modal, setModal] = useState(false);
@@ -45,11 +44,11 @@ function CarItem({ data }) {
   } = data;
   const [, city, country] = address.split(",");
 
-  const handleModalToggle = () => {
+  const handleModalToggle = useCallback(() => {
     setModal((prev) => !prev);
-  };
+  }, []);
 
-  const handleAddFavorite = () => {
+  const handleAddFavorite = useCallback(() => {
     if (favorite) {
       dispatch(deleteFavorites(data));
       setFavorite((prev) => !prev);
@@ -57,16 +56,12 @@ function CarItem({ data }) {
       dispatch(addFavorites(data));
       setFavorite((prev) => !prev);
     }
-  };
-
-  // const shortestString = accessories.reduce((shortest, current) => {
-  //   return current.length < shortest.length ? current : shortest;
-  // }, accessories[0]);
+  }, [dispatch, favorite, data]);
 
   return (
     <li>
       <ImageBoxStyle>
-        <ImagesStyle src={img} alt={model} width={400} />
+        <img src={img} alt={model} width={400} />
         <HeartBtnStyle onClick={handleAddFavorite}>
           <HeartBtnSvgStyle width={18} height={18} $isFavorite={favorite}>
             <use href={`${sprite}#icon-active`}></use>

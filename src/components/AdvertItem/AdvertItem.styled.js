@@ -23,10 +23,6 @@ export const HeartBtnSvgStyle = styled("svg")((props) => ({
   fill: props.$isFavorite ? "var(--fill-color)" : "none",
 }));
 
-export const ImagesStyle = styled("img")({
-  // borderRadius: "14px",
-});
-
 export const TopTextStyle = styled("div")({
   display: "flex",
   justifyContent: "space-between",
@@ -74,30 +70,3 @@ export const ItemLearnMoreBtn = styled("button")({
   fontWeight: 600,
   lineHeight: 1.4,
 });
-
-// make: "Volvo";
-// model: "XC90";
-// year: 2019;
-// rentalPrice: "$50";
-// id: 9584;
-
-// address: "456 Example Avenue, Lviv, Ukraine";
-// type: "SUV";
-
-// accessories: (3)[
-//   ("Nappa leather seats",
-//   "Bowers & Wilkins premium sound system",
-//   "Head-up display")
-// ];
-// description: "The Volvo XC90 is a premium SUV that offers exceptional safety, advanced technology, and elegant design.";
-// engineSize: "2.0L 4-cylinder";
-// fuelConsumption: "8.3";
-// functionalities: (3)[
-//   ("IntelliSafe advanced safety features",
-//   "Pilot Assist semi-autonomous driving",
-//   "Four-zone automatic climate control")
-// ];
-// img: "https://ftp.goit.study/img/cars-test-task/volvo_xc90.jpeg";
-// mileage: 5352;
-// rentalCompany: "Premium Auto Rentals";
-// rentalConditions: "Minimum age: 21\nValid driver's license\nProof of insurance required";

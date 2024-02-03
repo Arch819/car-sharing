@@ -43,6 +43,7 @@ function Modal({ data, closeModal }) {
   const [, city, country] = address.split(",");
   const [minAge, validLicense, insurance] = rentalConditions.split("\n");
   const age = parseInt(minAge.match(/\d+/));
+
   useEffect(() => {
     const closeESC = (e) => {
       if (e.code === "Escape") {
@@ -54,6 +55,7 @@ function Modal({ data, closeModal }) {
     return () => {
       document.removeEventListener("keydown", closeESC);
       document.body.style.overflow = "auto";
+      document.body.style.width = "100%";
     };
   }, [closeModal]);
 
@@ -109,13 +111,13 @@ function Modal({ data, closeModal }) {
           </AccessoriesTittleStyle>
           <ModalTopListBoxStyle>
             <BottomTextListStyle>
-              {accessories.map((acc) => (
-                <BottomTextItemStyle>{acc}</BottomTextItemStyle>
+              {accessories.map((acc, i) => (
+                <BottomTextItemStyle key={i}>{acc}</BottomTextItemStyle>
               ))}
             </BottomTextListStyle>
             <BottomTextListStyle>
-              {functionalities.map((fun) => (
-                <BottomTextItemStyle>{fun}</BottomTextItemStyle>
+              {functionalities.map((fun, i) => (
+                <BottomTextItemStyle key={i}>{fun}</BottomTextItemStyle>
               ))}
             </BottomTextListStyle>
           </ModalTopListBoxStyle>

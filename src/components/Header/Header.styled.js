@@ -1,11 +1,11 @@
-import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const HeaderStyle = styled("header")({
   position: "fixed",
   top: "0",
   left: "0",
-  zIndex: "99",
+  zIndex: "999",
   width: "100%",
   background: "#f1f1f1",
   boxShadow: "0 1px 8px 0 #121417",

@@ -1,10 +1,10 @@
-import React, { Suspense, useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Notify } from "notiflix";
+import { selectError, selectIsLoading } from "store/appState/appStateSelectors";
 import Header from "../Header";
 import Loader from "../Loader";
-import { useSelector } from "react-redux";
-import { selectError, selectIsLoading } from "store/appState/appStateSelectors";
-import { Notify } from "notiflix";
 
 function Layout() {
   const loading = useSelector(selectIsLoading);

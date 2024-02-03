@@ -1,9 +1,9 @@
-// import React, { useState } from "react";
-import Section from "../../components/Section";
 import { useSelector } from "react-redux";
 import { selectFavorites } from "store/favorites/favoritesSelector";
-import Filters from "components/Filters";
+import Section from "../../components/Section";
 import CarsList from "components/AdvertsList";
+import EmptyMessage from "components/EmptyMessage";
+import { FavoriteTitleStyle } from "./FavoritePage.styled";
 
 function FavoritePage() {
   const favorites = useSelector(selectFavorites);
@@ -11,9 +11,14 @@ function FavoritePage() {
   return (
     <Section>
       <div className="container">
-        <h2>Favorite</h2>
-        <Filters />
-        <CarsList adverts={favorites} />
+        <FavoriteTitleStyle>Favorite</FavoriteTitleStyle>
+        {favorites.length > 0 ? (
+          <CarsList adverts={favorites} />
+        ) : (
+          <EmptyMessage>
+            No favorites yet. Add some cars to your favorites!
+          </EmptyMessage>
+        )}
       </div>
     </Section>
   );
