@@ -71,7 +71,6 @@ function Filters() {
           options={priceList}
           onChange={handlePriceChange}
           aria-label="Select a rental price"
-          formatOptionLabel={(option) => option.label}
           placeholder={""}
         />
       </FormLabelStyle>
