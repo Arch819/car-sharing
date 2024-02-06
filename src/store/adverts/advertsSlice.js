@@ -1,7 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { getAllAdvertsThunk, getFilterAdvertsThunk } from "./advertsThunk";
 import {
+  getAdvertsThunk,
+  getAllAdvertsThunk,
+  getFilterAdvertsThunk,
+} from "./advertsThunk";
+import {
+  fetchGetAdvertsFulfilled,
   fetchGetAllAdvertsFulfilled,
   fetchGetFilterAdvertsFulfilled,
 } from "./advertsHelpers";
@@ -17,7 +22,8 @@ const advertsSlice = createSlice({
   extraReducers: (build) => {
     build
       .addCase(getAllAdvertsThunk.fulfilled, fetchGetAllAdvertsFulfilled)
-      .addCase(getFilterAdvertsThunk.fulfilled, fetchGetFilterAdvertsFulfilled);
+      .addCase(getFilterAdvertsThunk.fulfilled, fetchGetFilterAdvertsFulfilled)
+      .addCase(getAdvertsThunk.fulfilled, fetchGetAdvertsFulfilled);
   },
 });
 

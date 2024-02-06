@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoading } from "store/appState/appStateSelectors";
-import { getAllAdvertsThunk } from "../../store/adverts/advertsThunk";
-import { selectAdverts } from "../../store/adverts/selectors";
+import {
+  getAdvertsThunk,
+  getAllAdvertsThunk,
+} from "../../store/adverts/advertsThunk";
+import { selectAdverts, selectTotalPage } from "../../store/adverts/selectors";
 import Section from "../../components/Section";
 import Filters from "../../components/Filters";
 import CarsList from "../../components/AdvertsList";
@@ -12,11 +14,19 @@ function CatalogPage() {
   const [page, setPage] = useState(1);
   const dispatch = useDispatch();
   const adverts = useSelector(selectAdverts);
-  const isLoading = useSelector(selectIsLoading);
+  const totalPage = useSelector(selectTotalPage);
 
   useEffect(() => {
-    dispatch(getAllAdvertsThunk({ page }));
-  }, [dispatch, page]);
+    if (!adverts.length) {
+      dispatch(getAllAdvertsThunk());
+    }
+  }, [adverts.length, dispatch]);
+
+  useEffect(() => {
+    if (page <= totalPage) {
+      dispatch(getAdvertsThunk({ page }));
+    }
+  }, [dispatch, page, totalPage]);
 
   const handleNextPage = () => {
     setPage((prev) => prev + 1);
@@ -27,7 +37,7 @@ function CatalogPage() {
       <div className="container">
         <Filters />
         <CarsList adverts={adverts} />
-        {!isLoading && adverts.length >= 12 && (
+        {totalPage > 1 && page < totalPage && (
           <LoadMoreBtn onClick={handleNextPage}>Load more</LoadMoreBtn>
         )}
       </div>
