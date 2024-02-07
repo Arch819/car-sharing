@@ -32,7 +32,7 @@ function CarItem({ data }) {
   }, [data.id, isFavorite]);
 
   const {
-    id,
+    _id,
     year,
     model,
     make,
@@ -42,7 +42,6 @@ function CarItem({ data }) {
     address,
     rentalCompany,
   } = data;
-  const [, city, country] = address.split(",");
 
   const handleModalToggle = useCallback(() => {
     setModal((prev) => !prev);
@@ -77,14 +76,14 @@ function CarItem({ data }) {
         </TopTextStyle>
         <BottomTextStyle>
           <BottomTextListStyle>
-            <BottomTextItemStyle>{city}</BottomTextItemStyle>
-            <BottomTextItemStyle>{country}</BottomTextItemStyle>
+            <BottomTextItemStyle>{address?.city}</BottomTextItemStyle>
+            <BottomTextItemStyle>{address?.country}</BottomTextItemStyle>
             <BottomTextItemStyle>{rentalCompany}</BottomTextItemStyle>
           </BottomTextListStyle>
           <BottomTextListStyle>
             <BottomTextItemStyle>{type}</BottomTextItemStyle>
             <BottomTextItemStyle>{make}</BottomTextItemStyle>
-            <BottomTextItemStyle>{id}</BottomTextItemStyle>
+            <BottomTextItemStyle>{_id}</BottomTextItemStyle>
           </BottomTextListStyle>
         </BottomTextStyle>
         <ItemLearnMoreBtn className="btn" onClick={handleModalToggle}>

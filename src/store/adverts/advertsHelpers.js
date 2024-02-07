@@ -1,10 +1,10 @@
 export const fetchGetAdvertsFulfilled = (state, { payload }) => {
-  state.adverts.push(...payload);
+  state.adverts.push(...payload.data);
+  state.totalPage = payload.totalPage;
+  state.total = payload.total;
 };
 export const fetchGetFilterAdvertsFulfilled = (state, { payload }) => {
-  state.adverts = payload;
-};
-
-export const fetchGetAllAdvertsFulfilled = (state, { payload }) => {
-  state.totalPage = payload;
+  state.adverts = payload.data;
+  state.totalPage = payload.totalPage;
+  state.total = payload.total;
 };

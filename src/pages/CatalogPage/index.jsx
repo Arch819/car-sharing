@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getAdvertsThunk,
-  getAllAdvertsThunk,
-} from "../../store/adverts/advertsThunk";
+import { getAdvertsThunk } from "../../store/adverts/advertsThunk";
 import { selectAdverts, selectTotalPage } from "../../store/adverts/selectors";
 import Section from "../../components/Section";
 import Filters from "../../components/Filters";
 import CarsList from "../../components/AdvertsList";
 import { LoadMoreBtn } from "./CatalogPage.styled";
+import { Notify } from "notiflix";
 
 function CatalogPage() {
   const [page, setPage] = useState(1);
@@ -17,16 +15,10 @@ function CatalogPage() {
   const totalPage = useSelector(selectTotalPage);
 
   useEffect(() => {
-    if (!adverts.length) {
-      dispatch(getAllAdvertsThunk());
-    }
-  }, [adverts.length, dispatch]);
-
-  useEffect(() => {
-    if (page <= totalPage) {
-      dispatch(getAdvertsThunk({ page }));
-    }
-  }, [dispatch, page, totalPage]);
+    dispatch(getAdvertsThunk({ page })).then(({ payload }) => {
+      page === 1 && Notify.success(`Found ${payload.total} adverts`);
+    });
+  }, [dispatch, page]);
 
   const handleNextPage = () => {
     setPage((prev) => prev + 1);

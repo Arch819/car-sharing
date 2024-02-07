@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import _debounce from "lodash.debounce";
 import Select from "react-select";
 import { handleUpdateFilters } from "store/adverts/advertsSlice";
 import { getFilterAdvertsThunk } from "store/adverts/advertsThunk";
@@ -24,29 +25,48 @@ function Filters() {
 
   const [brand, setBrand] = useState(filter.make);
   const [price, setPrice] = useState(filter.rentalPrice);
+  const [mileageFrom, setMileageFrom] = useState(filter.mileageFrom);
+  const [mileageTo, setMileageTo] = useState(filter.mileageTo);
+  const [fieldChange, setFieldChange] = useState(false);
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const filterChange = {
       make: brand,
       rentalPrice: price,
+      mileageFrom,
+      mileageTo,
     };
     dispatch(getFilterAdvertsThunk(filterChange));
     dispatch(handleUpdateFilters(filterChange));
+    setFieldChange(false);
   };
 
   const handleBrandChange = ({ value }) => {
     if (filter.make !== value) {
       setBrand(value);
+      setFieldChange(true);
     }
     return;
   };
   const handlePriceChange = ({ value }) => {
     if (filter.rentalPrice !== value) {
       setPrice(value);
+      setFieldChange(true);
     }
     return;
   };
+  const handleMileageChange = _debounce(({ target }) => {
+    const { name, value } = target;
+    if (name === "from") {
+      setMileageFrom(value);
+      setFieldChange(true);
+    }
+    if (name === "to") {
+      setMileageTo(value);
+      setFieldChange(true);
+    }
+  }, 300);
 
   return (
     <FormaStyle onSubmit={handleFormSubmit}>
@@ -79,15 +99,27 @@ function Filters() {
         <FormMileageBoxStyle>
           <FormMileageLabelStyle>
             <FormTextAboveInputStyle>From</FormTextAboveInputStyle>
-            <MileageInputStyle type="text" className="from" />
+            <MileageInputStyle
+              type="text"
+              className="from"
+              name="from"
+              defaultValue={mileageFrom}
+              onChange={handleMileageChange}
+            />
           </FormMileageLabelStyle>
           <FormMileageLabelStyle>
             <FormTextAboveInputStyle>To</FormTextAboveInputStyle>
-            <MileageInputStyle type="text" className="to" />
+            <MileageInputStyle
+              type="text"
+              className="to"
+              name="to"
+              defaultValue={mileageTo}
+              onChange={handleMileageChange}
+            />
           </FormMileageLabelStyle>
         </FormMileageBoxStyle>
       </FormLabelStyle>
-      <FormaBtn className="btn" type="submit">
+      <FormaBtn className="btn" type="submit" disabled={!fieldChange}>
         Search
       </FormaBtn>
     </FormaStyle>

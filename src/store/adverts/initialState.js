@@ -1,9 +1,11 @@
 export const initialState = {
   adverts: [],
-  totalPage: null,
+  totalPage: 0,
+  total: 0,
   filter: {
-    make: "",
+    make: null,
     rentalPrice: null,
-    mileage: "",
+    mileageFrom: null,
+    mileageTo: null,
   },
 };

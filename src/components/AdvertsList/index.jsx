@@ -5,7 +5,7 @@ function CarsList({ adverts }) {
   return (
     <CarsListStyle>
       {adverts.map((advert) => {
-        return <CarItem key={advert.id} data={advert} />;
+        return <CarItem key={advert._id} data={advert} />;
       })}
     </CarsListStyle>
   );
