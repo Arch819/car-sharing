@@ -5,6 +5,9 @@
   --bg-btn-hover: #0B44CD;
   --bg-backdrop: #12141780;
   --bg-home: #121417aa;
+  --bg-btn-positive: #00b922;
+  --bg-btn-negative: #c72240;
+
 
   --color-text-btn: #FFFFFF;
   --color-text-primary: #121417;
@@ -65,9 +68,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
-  position: absolute;
-  z-index: 9999;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -80,16 +81,17 @@
   margin-bottom: 10px
 }
 
-html,
+
 body {
   height: 100%;
+  width: 100%;
   position: relative;
-  overflow-y: scroll;
 }
 
 body {
   width: 100%;
   margin: 0;
+  padding: 0;
   font-family: Manrope, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
