@@ -4,6 +4,7 @@ import { getAdvertsThunk, getFilterAdvertsThunk } from "./advertsThunk";
 import {
   fetchGetAdvertsFulfilled,
   fetchGetFilterAdvertsFulfilled,
+  resetAdvertsState,
 } from "./advertsHelpers";
 
 const advertsSlice = createSlice({
@@ -17,7 +18,8 @@ const advertsSlice = createSlice({
   extraReducers: (build) => {
     build
       .addCase(getFilterAdvertsThunk.fulfilled, fetchGetFilterAdvertsFulfilled)
-      .addCase(getAdvertsThunk.fulfilled, fetchGetAdvertsFulfilled);
+      .addCase(getAdvertsThunk.fulfilled, fetchGetAdvertsFulfilled)
+      .addMatcher(({ type }) => type.includes("logout"), resetAdvertsState);
   },
 });
 

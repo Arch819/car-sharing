@@ -1,5 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchGetAdverts } from "../../api";
+import api from "../../api";
+
+const { fetchGetAdverts } = api.advertsApi;
 
 export const getAdvertsThunk = createAsyncThunk(
   "adverts/fetch",
