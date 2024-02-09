@@ -1,30 +1,20 @@
 import Logo from "../Logo";
-import {
-  HeaderContainerStyle,
-  HeaderStyle,
-  NavItemStyle,
-  NavLinkStyle,
-  NavigationListStyle,
-} from "./Header.styled";
+import Navigation from "components/Navigation";
+import { HeaderContainerStyle, HeaderStyle } from "./Header.styled";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "store/auth/authSelectors";
+import UserSettings from "components/UserSettings";
 
 function Header() {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
   return (
     <HeaderStyle>
       <HeaderContainerStyle className="container">
         <Logo />
-        <nav>
-          <NavigationListStyle>
-            <NavItemStyle>
-              <NavLinkStyle to="/">Home</NavLinkStyle>
-            </NavItemStyle>
-            <NavItemStyle>
-              <NavLinkStyle to="/catalog">Catalog</NavLinkStyle>
-            </NavItemStyle>
-            <NavItemStyle>
-              <NavLinkStyle to="/favorites">Favorite</NavLinkStyle>
-            </NavItemStyle>
-          </NavigationListStyle>
-        </nav>
+        <Navigation />
+        {/* {isLoggedIn && */}
+        <UserSettings />
+        {/* } */}
       </HeaderContainerStyle>
     </HeaderStyle>
   );

@@ -15,6 +15,13 @@ export const HomeTitleStyle = styled("h1")({
   marginBottom: "60px",
 });
 
+export const SignUpInBtnBoxStyle = styled("div")({
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  gap: "40px",
+});
+
 export const HomeBtnStyle = styled(Link)({
   padding: "18px 38px",
   background: "var(--bg-backdrop)",

@@ -40,9 +40,7 @@ function Modal({ data, closeModal }) {
     rentalConditions,
     mileage,
   } = data;
-  const [, city, country] = address.split(",");
-  const [minAge, validLicense, insurance] = rentalConditions.split("\n");
-  const age = parseInt(minAge.match(/\d+/));
+  const { MinimumAge, driverLicense, otherRequirements } = rentalConditions;
 
   useEffect(() => {
     const closeESC = (e) => {
@@ -61,7 +59,7 @@ function Modal({ data, closeModal }) {
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    document.body.style.width = "calc(100% - 6px)";
+    document.body.style.width = "calc(100% - 10px)";
 
     return () => {
       document.body.style.overflow = "auto";
@@ -90,8 +88,8 @@ function Modal({ data, closeModal }) {
           <AdvertItemTitle data={{ make, model, year }} />
           <ModalTopListBoxStyle>
             <BottomTextListStyle>
-              <BottomTextItemStyle>{city}</BottomTextItemStyle>
-              <BottomTextItemStyle>{country}</BottomTextItemStyle>
+              <BottomTextItemStyle>{address?.city}</BottomTextItemStyle>
+              <BottomTextItemStyle>{address?.country}</BottomTextItemStyle>
               <BottomTextItemStyle>Id: {id}</BottomTextItemStyle>
               <BottomTextItemStyle>Year: {year}</BottomTextItemStyle>
               <BottomTextItemStyle>Type: {type}</BottomTextItemStyle>
@@ -127,13 +125,17 @@ function Modal({ data, closeModal }) {
           <RentalConditionsListStyle>
             <RentalConditionsItemStyle>
               Minimum age:{" "}
-              <RentalConditionsSpanStyle>{age}</RentalConditionsSpanStyle>
+              <RentalConditionsSpanStyle>
+                {MinimumAge}
+              </RentalConditionsSpanStyle>
             </RentalConditionsItemStyle>
             <RentalConditionsItemStyle>
-              {validLicense}
+              {driverLicense}
             </RentalConditionsItemStyle>
             <br />
-            <RentalConditionsItemStyle>{insurance}</RentalConditionsItemStyle>
+            <RentalConditionsItemStyle>
+              {otherRequirements}
+            </RentalConditionsItemStyle>
             <RentalConditionsItemStyle>
               Mileage:{" "}
               <RentalConditionsSpanStyle>
