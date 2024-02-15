@@ -26,7 +26,7 @@ export const refreshThunkPending = (state, { payload }) => {
 };
 
 export const refreshThunkFulfilled = (state, { payload }) => {
-  state.profile = payload.profile;
+  state.profile = payload;
   state.isLoggedIn = true;
   state.isRefreshing = false;
 };

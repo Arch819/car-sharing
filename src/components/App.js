@@ -12,6 +12,7 @@ import { selectIsRefresh } from "store/auth/authSelectors";
 import { useEffect } from "react";
 import { refreshThunk } from "store/auth/authThunk";
 import Loader from "./Loader";
+import CreatedAdvPage from "pages/CreateedAdvPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,6 +40,10 @@ function App() {
         <Route
           path="/favorites"
           element={<PrivateRoute component={<FavoritePage />} />}
+        />
+        <Route
+          path="/createdadv"
+          element={<PrivateRoute component={<CreatedAdvPage />} />}
         />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>

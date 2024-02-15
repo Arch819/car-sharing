@@ -42,13 +42,13 @@ function SignInForm() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { handleReset }) => {
+    onSubmit: async (values, { resetForm }) => {
       dispatch(signInThunk(values)).then(({ payload }) => {
         if (payload.token) {
           Notify.success(
             "You have been successfully logged in! Your session is now active."
           );
-          handleReset();
+          resetForm();
         }
       });
     },

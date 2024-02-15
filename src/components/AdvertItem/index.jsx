@@ -20,6 +20,7 @@ import {
   ItemPriceStyle,
   TopTextStyle,
 } from "./AdvertItem.styled";
+import ModalAdvert from "components/Modal/ModalAdvert";
 
 function CarItem({ data }) {
   const [modal, setModal] = useState(false);
@@ -90,7 +91,11 @@ function CarItem({ data }) {
           Learn more
         </ItemLearnMoreBtn>
       </div>
-      {modal && <Modal data={data} closeModal={handleModalToggle} />}
+      {modal && (
+        <Modal closeModal={handleModalToggle}>
+          <ModalAdvert data={data} closeModal={handleModalToggle} />
+        </Modal>
+      )}
     </li>
   );
 }

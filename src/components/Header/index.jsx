@@ -12,9 +12,7 @@ function Header() {
       <HeaderContainerStyle className="container">
         <Logo />
         <Navigation />
-        {/* {isLoggedIn && */}
-        <UserSettings />
-        {/* } */}
+        {isLoggedIn && <UserSettings />}
       </HeaderContainerStyle>
     </HeaderStyle>
   );

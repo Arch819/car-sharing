@@ -44,13 +44,13 @@ function SignUpForm() {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: async (values, { handleReset }) => {
+    onSubmit: async (values, { resetForm }) => {
       dispatch(signUpThunk(values)).then(({ payload }) => {
         if (payload.token) {
           Notify.success(
             "You have been successfully registered and logged in! Your session is now active."
           );
-          handleReset();
+          resetForm();
         }
       });
     },

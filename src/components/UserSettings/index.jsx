@@ -1,27 +1,24 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { Avatar, Box, Button, Menu, MenuItem, Typography } from "@mui/material";
+import { Avatar, Menu, MenuItem, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import { selectIsLoggedIn, selectProfile } from "store/auth/authSelectors";
+import { selectProfile } from "store/auth/authSelectors";
 import { logoutThunk } from "store/auth/authThunk";
 import { notiflixConfirm } from "utils/notiflixMessages";
 import {
   LogOutStyle,
-  NavLinkStyle,
   ProfileLinkStyle,
-  SettingMenuItemStyle,
-  SettingMenuListStyle,
   SettingMenuStyle,
   SettingsBoxStyle,
   SettingsBtnStyle,
 } from "./UserSettings.styled";
-
+import Modal from "components/Modal";
+import Profile from "components/Profile";
 function UserSettings() {
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [modalProfile, setModalProfile] = useState(false);
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectIsLoggedIn);
   const { name, avatar } = useSelector(selectProfile);
 
   const handleLogOut = async () => {
@@ -39,6 +36,10 @@ function UserSettings() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleModalToggle = useCallback(() => {
+    setModalProfile((prev) => !prev);
+  }, []);
 
   return (
     <SettingsBoxStyle>
@@ -68,7 +69,11 @@ function UserSettings() {
         variant="menu"
       >
         <MenuItem sx={{ padding: "0" }} onClick={handleCloseUserMenu}>
-          <Typography sx={ProfileLinkStyle} component={NavLink} to="profile">
+          <Typography
+            sx={ProfileLinkStyle}
+            component="button"
+            onClick={handleModalToggle}
+          >
             <ManageAccountsIcon />
             Profile
           </Typography>
@@ -80,6 +85,11 @@ function UserSettings() {
           </LogOutStyle>
         </MenuItem>
       </Menu>
+      {modalProfile && (
+        <Modal closeModal={handleModalToggle}>
+          <Profile closeModal={handleModalToggle} />
+        </Modal>
+      )}
     </SettingsBoxStyle>
   );
 }

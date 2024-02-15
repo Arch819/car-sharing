@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
 export const SectionStyled = styled("section")({
-  paddingTop: "150px",
+  paddingTop: "50px",
   paddingBottom: "40px",
 });
