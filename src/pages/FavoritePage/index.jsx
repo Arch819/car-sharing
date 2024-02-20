@@ -4,6 +4,7 @@ import Section from "../../components/Section";
 import CarsList from "components/AdvertsList";
 import EmptyMessage from "components/EmptyMessage";
 import { FavoriteTitleStyle } from "./FavoritePage.styled";
+import { HomeBtnStyle } from "pages/HomePage/Home.styled";
 
 function FavoritePage() {
   const favorites = useSelector(selectFavorites);
@@ -17,6 +18,7 @@ function FavoritePage() {
         ) : (
           <EmptyMessage>
             No favorites yet. Add some cars to your favorites!
+            <HomeBtnStyle to="/catalog">Go to adverts</HomeBtnStyle>
           </EmptyMessage>
         )}
       </div>

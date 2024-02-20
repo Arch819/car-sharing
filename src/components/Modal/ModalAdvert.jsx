@@ -38,7 +38,7 @@ function ModalAdvert({ data, closeModal }) {
     rentalConditions,
     mileage,
   } = data;
-  const { MinimumAge, driverLicense, otherRequirements } = rentalConditions;
+  const { MinimumAge, DriverLicense, otherRequirements } = rentalConditions;
 
   return (
     <ModalContainerStyle className="modal">
@@ -56,7 +56,6 @@ function ModalAdvert({ data, closeModal }) {
           <BottomTextListStyle>
             <BottomTextItemStyle>{address?.city}</BottomTextItemStyle>
             <BottomTextItemStyle>{address?.country}</BottomTextItemStyle>
-            <BottomTextItemStyle>Id: {id}</BottomTextItemStyle>
             <BottomTextItemStyle>Year: {year}</BottomTextItemStyle>
             <BottomTextItemStyle>Type: {type}</BottomTextItemStyle>
           </BottomTextListStyle>
@@ -91,8 +90,13 @@ function ModalAdvert({ data, closeModal }) {
             Minimum age:{" "}
             <RentalConditionsSpanStyle>{MinimumAge}</RentalConditionsSpanStyle>
           </RentalConditionsItemStyle>
-          <RentalConditionsItemStyle>{driverLicense}</RentalConditionsItemStyle>
-          <br />
+          {DriverLicense && (
+            <RentalConditionsItemStyle>
+              Valid driver’s license
+            </RentalConditionsItemStyle>
+          )}
+        </RentalConditionsListStyle>
+        <RentalConditionsListStyle>
           <RentalConditionsItemStyle>
             {otherRequirements}
           </RentalConditionsItemStyle>
@@ -104,7 +108,9 @@ function ModalAdvert({ data, closeModal }) {
           </RentalConditionsItemStyle>
           <RentalConditionsItemStyle>
             Price:{" "}
-            <RentalConditionsSpanStyle>{rentalPrice}</RentalConditionsSpanStyle>
+            <RentalConditionsSpanStyle>
+              {rentalPrice}$
+            </RentalConditionsSpanStyle>
           </RentalConditionsItemStyle>
         </RentalConditionsListStyle>
       </ModalTextBoxStyle>

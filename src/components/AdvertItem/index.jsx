@@ -84,7 +84,6 @@ function CarItem({ data }) {
           <BottomTextListStyle>
             <BottomTextItemStyle>{type}</BottomTextItemStyle>
             <BottomTextItemStyle>{make}</BottomTextItemStyle>
-            <BottomTextItemStyle>{_id}</BottomTextItemStyle>
           </BottomTextListStyle>
         </BottomTextStyle>
         <ItemLearnMoreBtn className="btn" onClick={handleModalToggle}>

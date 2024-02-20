@@ -56,7 +56,12 @@ function SignUpForm() {
     },
   });
   return (
-    <Box component="form" onSubmit={formik.handleSubmit} sx={UserFormStyle}>
+    <Box
+      component="form"
+      onSubmit={formik.handleSubmit}
+      sx={UserFormStyle}
+      autoFocus="true"
+    >
       <TextField
         type="text"
         id="standard-basic"

@@ -6,6 +6,9 @@ import { format } from "date-fns";
 import { updateAvatarThunk } from "store/auth/authThunk";
 
 import {
+  AvatarChangeLabel,
+  AvatarForm,
+  AvatarImageStyle,
   AvatarSvgStyle,
   IconBtnSvg,
   ImageBoxStyle,
@@ -14,7 +17,6 @@ import {
   ProfileBoxStyle,
   ProfileTitleStyle,
 } from "./Profile.styled";
-import { Button } from "@mui/material";
 import { ModalCloseStyle } from "components/Modal/Modal.styled";
 
 function Profile({ closeModal }) {
@@ -54,29 +56,29 @@ function Profile({ closeModal }) {
       <ProfileTitleStyle>Profile</ProfileTitleStyle>
       <ImageBoxStyle>
         {avatar ? (
-          <img src={avatar} alt="" />
+          <AvatarImageStyle
+            src={`https://car-sharing-api.onrender.com/${avatar}`}
+            alt="avatar"
+          />
         ) : (
           <AvatarSvgStyle>
             <use href={`${sprite}#icon-user`}></use>
           </AvatarSvgStyle>
         )}
-        <form id="upload-form">
-          <input
-            type="file"
-            id="avatar"
-            name="file"
-            style={{ display: "none" }}
-            onChange={handleAvatarChange}
-            accept=".png, .jpg"
-          />
-          <label htmlFor="avatar">
-            <Button>
-              <IconBtnSvg>
-                <use href={`${sprite}#icon-upload-avatar`}></use>
-              </IconBtnSvg>
-            </Button>
-          </label>
-        </form>
+        <AvatarForm id="upload-form">
+          <AvatarChangeLabel>
+            <input
+              type="file"
+              name="file"
+              style={{ display: "none" }}
+              onChange={handleAvatarChange}
+              accept=".png, .jpg"
+            />
+            <IconBtnSvg>
+              <use href={`${sprite}#icon-upload-avatar`}></use>
+            </IconBtnSvg>
+          </AvatarChangeLabel>
+        </AvatarForm>
       </ImageBoxStyle>
       <InfoUserListStyle>
         <InfoUserItemStyle>
@@ -90,12 +92,18 @@ function Profile({ closeModal }) {
         </InfoUserItemStyle>
         <InfoUserItemStyle>
           <p>
-            Added adv: <Link to="/createdadv">{createdAdverts.length}</Link>
+            Added adv:{" "}
+            <Link to="/createdadv" onClick={closeModal}>
+              {createdAdverts.length}
+            </Link>
           </p>
         </InfoUserItemStyle>
         <InfoUserItemStyle>
           <p>
-            Added to favorite: <Link to="/favorites">{favorites.length}</Link>
+            Added to favorite:{" "}
+            <Link to="/favorites" onClick={closeModal}>
+              {favorites.length}
+            </Link>
           </p>
         </InfoUserItemStyle>
       </InfoUserListStyle>

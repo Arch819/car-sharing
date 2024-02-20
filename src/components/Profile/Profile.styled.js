@@ -38,11 +38,18 @@ export const ImageBoxStyle = styled("div")({
   },
 });
 
+export const AvatarImageStyle = styled("img")({
+  width: "100%",
+  height: "100%",
+  border: "1px solid red",
+  borderRadius: 100,
+});
+
 export const AvatarSvgStyle = styled("svg")({
   width: "100%",
   height: "100%",
-  background: "#171717",
-  fill: "#e6e6e6",
+  background: "#1a1a1a",
+  fill: "#aeaeae",
   borderRadius: "100%",
 });
 
@@ -84,18 +91,21 @@ export const ProfileTitleStyle = styled("h2")({
 
   marginBottom: "40px",
 });
-export const Button = styled.div`
+
+export const AvatarForm = styled.form`
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
+export const AvatarChangeLabel = styled.label`
   width: 24px;
   height: 24px;
   cursor: pointer;
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: var(--transition);
 
-  &:hover {
-    transform: translateX(-50%) scale(1.2);
+  &:hover svg {
+    transform: scale(1.2);
   }
 
   @media screen and (min-width: 768px) {
@@ -107,6 +117,8 @@ export const IconBtnSvg = styled.svg`
   width: 24px;
   height: 24px;
   fill: var(--bg-btn-hover);
+  transition: var(--transition);
+
   @media screen and (min-width: 768px) {
     width: 32px;
     height: 32px;
