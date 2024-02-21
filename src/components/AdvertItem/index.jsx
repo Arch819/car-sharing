@@ -33,7 +33,6 @@ function CarItem({ data }) {
   }, [data.id, isFavorite]);
 
   const {
-    _id,
     year,
     model,
     make,
