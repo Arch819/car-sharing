@@ -1,4 +1,3 @@
-import sprite from "../../images/sprite.svg";
 import AdvertItemTitle from "../AdvertItemTitle";
 import {
   BottomTextItemStyle,
@@ -8,7 +7,6 @@ import {
 import {
   AccessoriesTittleStyle,
   AdvertDescriptionStyle,
-  ModalCloseStyle,
   ModalContainerStyle,
   ModalImgContainerStyle,
   ModalSubmitBtnStyle,
@@ -19,10 +17,10 @@ import {
   RentalConditionsSpanStyle,
   RentalConditionsTitleStyle,
 } from "./Modal.styled";
+import CloseModal from "components/CloseModal";
 
 function ModalAdvert({ data, closeModal }) {
   const {
-    id,
     year,
     model,
     engineSize,
@@ -38,15 +36,11 @@ function ModalAdvert({ data, closeModal }) {
     rentalConditions,
     mileage,
   } = data;
-  const { MinimumAge, DriverLicense, otherRequirements } = rentalConditions;
+  const { minimumAge, driverLicense, otherRequirements } = rentalConditions;
 
   return (
     <ModalContainerStyle className="modal">
-      <ModalCloseStyle onClick={closeModal}>
-        <svg width={24} height={24}>
-          <use href={`${sprite}#icon-close`}></use>
-        </svg>
-      </ModalCloseStyle>
+      <CloseModal closeModal={closeModal} />
       <ModalImgContainerStyle>
         <img src={img} alt={model} width={470} />
       </ModalImgContainerStyle>
@@ -88,9 +82,9 @@ function ModalAdvert({ data, closeModal }) {
         <RentalConditionsListStyle>
           <RentalConditionsItemStyle>
             Minimum age:{" "}
-            <RentalConditionsSpanStyle>{MinimumAge}</RentalConditionsSpanStyle>
+            <RentalConditionsSpanStyle>{minimumAge}</RentalConditionsSpanStyle>
           </RentalConditionsItemStyle>
-          {DriverLicense && (
+          {driverLicense && (
             <RentalConditionsItemStyle>
               Valid driver’s license
             </RentalConditionsItemStyle>

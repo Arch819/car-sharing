@@ -8,7 +8,6 @@ export const HeaderStyle = styled("header")({
   width: "100%",
   background: "#f1f1f1",
   boxShadow: "0 1px 8px 0 #121417",
-  borderRadius: "0 0 0 20px",
 });
 
 export const HeaderContainerStyle = styled("div")({

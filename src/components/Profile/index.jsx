@@ -17,7 +17,7 @@ import {
   ProfileBoxStyle,
   ProfileTitleStyle,
 } from "./Profile.styled";
-import { ModalCloseStyle } from "components/Modal/Modal.styled";
+import CloseModal from "components/CloseModal";
 
 function Profile({ closeModal }) {
   // const [file, setFile] = useState(null);
@@ -48,18 +48,11 @@ function Profile({ closeModal }) {
 
   return (
     <ProfileBoxStyle>
-      <ModalCloseStyle onClick={closeModal}>
-        <svg width={24} height={24}>
-          <use href={`${sprite}#icon-close`}></use>
-        </svg>
-      </ModalCloseStyle>
+      <CloseModal onClick={closeModal} />
       <ProfileTitleStyle>Profile</ProfileTitleStyle>
       <ImageBoxStyle>
         {avatar ? (
-          <AvatarImageStyle
-            src={`https://car-sharing-api.onrender.com/${avatar}`}
-            alt="avatar"
-          />
+          <AvatarImageStyle src={avatar} alt="avatar" />
         ) : (
           <AvatarSvgStyle>
             <use href={`${sprite}#icon-user`}></use>

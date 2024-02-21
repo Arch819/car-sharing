@@ -60,7 +60,7 @@ function SignUpForm() {
       component="form"
       onSubmit={formik.handleSubmit}
       sx={UserFormStyle}
-      autoFocus="true"
+      autoFocus={true}
     >
       <TextField
         type="text"

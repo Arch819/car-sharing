@@ -23,18 +23,6 @@ export const ModalContainerStyle = styled("div")({
   transform: "translate(-50%, -50%)",
 });
 
-export const ModalCloseStyle = styled("button")({
-  position: "absolute",
-  top: "16px",
-  right: "16px",
-  background: "transparent",
-  borderColor: "transparent",
-
-  "& svg": {
-    stroke: "var(--stroke-close)",
-  },
-});
-
 export const ModalImgContainerStyle = styled("div")({
   width: "460px",
   height: "248px",

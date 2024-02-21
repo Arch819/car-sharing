@@ -58,7 +58,7 @@ function SignInForm() {
       component="form"
       onSubmit={formik.handleSubmit}
       sx={UserFormStyle}
-      autoFocus="true"
+      autoFocus={true}
     >
       <TextField
         name="email"

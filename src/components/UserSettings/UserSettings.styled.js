@@ -8,7 +8,7 @@ export const SettingsBtnStyle = styled("button")({
   display: "flex",
   alignItems: "center",
   gap: "16px",
-  padding: "8px 10px 8px 10px",
+  padding: "8px 12px 8px 12px",
   borderRadius: "30px",
   background: "transparent",
   boxShadow: "inset 0 0 10px 1px #0f0f0f",
