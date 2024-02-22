@@ -4,7 +4,7 @@ export const BackdropModalStyle = styled("div")({
   position: "fixed",
   top: "0",
   left: "0",
-  zIndex: "9999",
+  zIndex: "999",
   width: "100%",
   height: "100%",
   paddingRight: "6px",

@@ -30,7 +30,6 @@ function Profile({ closeModal }) {
 
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    console.log(file);
 
     if (file) {
       // setFile(file);

@@ -7,7 +7,6 @@ function AddAdvert({ closeModal }) {
   return (
     <AddAdvertBoxStyle>
       <CloseModal closeModal={closeModal} />
-      <div>Add Advert</div>
       <AddAdvertForm />
     </AddAdvertBoxStyle>
   );
