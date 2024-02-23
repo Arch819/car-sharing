@@ -3,6 +3,7 @@ import Modal from "components/Modal";
 import AddAdvert from "components/Modal/AddAdvert";
 import Section from "components/Section";
 import { useState } from "react";
+import { AddAdvertContainerStyle } from "./CreatedAdvPage.styled";
 
 function CreatedAdvPage() {
   const [addAdvertModal, setAddAdvertModal] = useState(false);
@@ -12,10 +13,10 @@ function CreatedAdvPage() {
   };
   return (
     <Section>
-      <div className="container">
+      <AddAdvertContainerStyle className="container">
         <h2>Created adv</h2>
         <AddBtn openModal={handleToggleModal} />
-      </div>
+      </AddAdvertContainerStyle>
       {addAdvertModal && (
         <Modal closeModal={handleToggleModal}>
           <AddAdvert closeModal={handleToggleModal} />

@@ -18,12 +18,13 @@ import {
   ProfileTitleStyle,
 } from "./Profile.styled";
 import CloseModal from "components/CloseModal";
+import { useState } from "react";
 
 function Profile({ closeModal }) {
-  // const [file, setFile] = useState(null);
+  const [avatar, setAvatar] = useState(useSelector(selectProfile).avatar);
 
   const dispatch = useDispatch();
-  const { name, email, avatar, createdAt, createdAdverts, favorites } =
+  const { name, email, createdAt, createdAdverts, favorites } =
     useSelector(selectProfile);
 
   const normalizedDate = format(createdAt, "dd-MM-yyyy");
@@ -31,17 +32,10 @@ function Profile({ closeModal }) {
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
 
-    if (file) {
-      // setFile(file);
-      // setAvatarURL(e.target.files[0]);
-      // const blob = new Blob([file]);
-      // const objectURL = URL.createObjectURL(blob);
-      // console.log(objectURL);
-      // setAvatarURL(objectURL);
-    }
-
     if (typeof file != "undefined") {
-      dispatch(updateAvatarThunk(file));
+      dispatch(updateAvatarThunk(file)).then(({ payload }) => {
+        payload && setAvatar(payload.avatar);
+      });
     }
   };
 

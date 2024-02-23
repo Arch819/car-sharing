@@ -21,7 +21,7 @@ export const AdvertsImageContainerStyle = styled.div`
   justify-content: center;
   border: 2px solid #aeaeff;
   overflow: hidden;
-
+  margin-bottom: 40px;
   border-radius: 14px;
 `;
 
@@ -45,7 +45,7 @@ export const LabelAdvertImageStyle = styled.label`
   position: relative;
   display: flex;
   justify-content: center;
-  max-width: 100%;
+  width: 100%;
   height: 248px;
   padding: 40px;
   border: 2px solid #aeaeff;
@@ -75,8 +75,41 @@ export const LabelAdvertTextStyle = styled.p`
 `;
 
 export const AdvertDataBoxStyle = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 40px;
+
+  & > div {
+    flex-basis: calc((100% - 20px) / 2);
+  }
+`;
+export const StepperStyle = {
+  paddingBottom: "20px",
+  alignItems: "stretch",
+  marginBottom: "40px",
+  alignContent: "center",
+
+  // borderBottom: "1px solid #000000",
+};
+
+export const StepStyle = {
+  // height: "100%",
+  position: "relative",
+
+  "& ~ .MuiStepConnector-root": {
+    display: "none",
+  },
+};
+
+export const StepUnderline = styled.div`
+  width: 100%;
+  height: 2px;
+  position: absolute;
+  bottom: -21px;
+  left: 0;
+  z-index: 1000;
+  background: ${(props) => `${props.color}`};
+  border-radius: 14px;
 `;

@@ -12,7 +12,7 @@ import { selectIsRefresh } from "store/auth/authSelectors";
 import { useEffect } from "react";
 import { refreshThunk } from "store/auth/authThunk";
 import Loader from "./Loader";
-import CreatedAdvPage from "pages/CreateedAdvPage";
+import CreatedAdvPage from "pages/CreatedAdvPage";
 
 function App() {
   const dispatch = useDispatch();

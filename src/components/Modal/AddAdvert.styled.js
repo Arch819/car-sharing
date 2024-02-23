@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const AddAdvertBoxStyle = styled.div`
-  width: 541px;
+  width: 740px;
   position: absolute;
   top: 50%;
   left: 50%;
