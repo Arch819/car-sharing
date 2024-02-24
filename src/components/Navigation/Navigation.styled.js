@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const NavigationListStyle = styled("ul")({
   display: "flex",
   gap: "20px",
+  alignItems: "center",
 
   "@media screen and (min-width: 778px)": {
     gap: "40px",

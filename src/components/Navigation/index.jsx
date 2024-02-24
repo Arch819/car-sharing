@@ -1,13 +1,15 @@
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "store/auth/authSelectors";
+import { selectIsLoggedIn, selectIsRefresh } from "store/auth/authSelectors";
 import {
   NavItemStyle,
   NavLinkStyle,
   NavigationListStyle,
 } from "./Navigation.styled";
+import UserSettings from "components/UserSettings";
 
 function Navigation() {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isRefresh = useSelector(selectIsRefresh);
   return (
     <nav>
       <NavigationListStyle>
@@ -22,7 +24,7 @@ function Navigation() {
             <NavLinkStyle to="/favorites">Favorite</NavLinkStyle>
           </NavItemStyle>
         )}
-        {!isLoggedIn && (
+        {!isLoggedIn && !isRefresh ? (
           <>
             <NavItemStyle>
               <NavLinkStyle to="/signin">Sign In</NavLinkStyle>
@@ -31,6 +33,8 @@ function Navigation() {
               <NavLinkStyle to="/signup">Sign Up</NavLinkStyle>
             </NavItemStyle>
           </>
+        ) : (
+          <UserSettings />
         )}
       </NavigationListStyle>
     </nav>

@@ -4,14 +4,14 @@ export const signUpThunkFulfilled = (state, { payload }) => {
   state.token = payload.token;
   state.profile = payload.profile;
   state.isLoggedIn = true;
-  state.isRefreshing = false;
+  state.isRefresh = false;
 };
 
 export const signInThunkFulfilled = (state, { payload }) => {
   state.token = payload.token;
   state.profile = payload.profile;
   state.isLoggedIn = true;
-  state.isRefreshing = false;
+  state.isRefresh = false;
 };
 
 export const logoutThunkPending = () => {
@@ -22,23 +22,23 @@ export const logoutThunkFulfilled = () => {
 };
 
 export const refreshThunkPending = (state, { payload }) => {
-  state.isRefreshing = true;
+  state.isRefresh = true;
 };
 
 export const refreshThunkFulfilled = (state, { payload }) => {
   state.profile = payload.profile;
   state.token = payload.token;
   state.isLoggedIn = true;
-  state.isRefreshing = false;
+  state.isRefresh = false;
 };
 
 export const updateProfileThunkFulfilled = (state, { payload }) => {
   state.profile = payload.profile;
-  state.isRefreshing = false;
+  state.isRefresh = false;
 };
 export const updateAvatarThunkFulfilled = (state, { payload }) => {
   state.profile.avatar = payload;
-  state.isRefreshing = false;
+  state.isRefresh = false;
 };
 
 export const deleteUserThunkFulfilled = (state, { payload }) => {

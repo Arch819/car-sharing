@@ -76,13 +76,13 @@ export const LabelAdvertTextStyle = styled.p`
 
 export const AdvertDataBoxStyle = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 40px;
 
   & > div {
-    flex-basis: calc((100% - 20px) / 2);
+    width: calc((100% - 20px) / 2);
   }
 `;
 export const StepperStyle = {
@@ -90,8 +90,6 @@ export const StepperStyle = {
   alignItems: "stretch",
   marginBottom: "40px",
   alignContent: "center",
-
-  // borderBottom: "1px solid #000000",
 };
 
 export const StepStyle = {
@@ -112,4 +110,46 @@ export const StepUnderline = styled.div`
   z-index: 1000;
   background: ${(props) => `${props.color}`};
   border-radius: 14px;
+`;
+
+export const AddressContainerStyle = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 10px;
+`;
+
+export const FormSelectCheckedItemList = styled.ul`
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+
+  & > li {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border: 1px solid #aeaeff;
+    border-radius: 14px;
+    padding: 0 6px;
+  }
+`;
+
+export const ClearItemListButtonStyle = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+
+  & svg {
+    pointer-events: none;
+  }
+`;
+
+export const StepErrorUnderTextStyle = styled.p`
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: #d32f2f;
+  font-size: 0.75rem;
 `;

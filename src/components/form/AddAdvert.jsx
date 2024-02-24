@@ -1,22 +1,29 @@
 import React, { useState } from "react";
 import {
+  // number,
+  object,
+  string,
+} from "yup";
+import {
   Box,
   Button,
+  Checkbox,
+  FormControlLabel,
   Step,
   StepButton,
-  // StepLabel,
   Stepper,
-  // FormControl,
-  // InputLabel,
-  // MenuItem,
-  // NativeSelect,
-  // Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
 import { useFormik } from "formik";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { object, string } from "yup";
+// import { CheckBox } from "@mui/icons-material";
+import { modelList } from "utils/modelList";
+import ClearIcon from "@mui/icons-material/Clear";
 import {
   AdvertDataBoxStyle,
   // AdvertImageFormStyle,
@@ -28,36 +35,38 @@ import {
   StepStyle,
   StepUnderline,
   StepperStyle,
+  StepErrorUnderTextStyle,
+  // AddressContainerStyle,
+  FormSelectCheckedItemList,
+  ClearItemListButtonStyle,
 } from "./AddAdvert.styled";
-// import { modelList } from "utils/modelList";
 
 const initialValues = {
   make: "",
   model: "",
   year: "",
   type: "",
-  rentalPrice: "",
   engineSize: "",
-  fuelConsumption: "",
-  address: {
-    street: "",
-    city: "",
-    country: "",
-  },
-  accessories: [],
-  description: "",
   functionalities: "",
-  rentalConditions: {
-    minimumAge: "",
-    driverLicense: "",
-    otherRequirements: "",
-  },
+  street: "",
+  city: "",
+  country: "",
+  fuelConsumption: [],
+  accessories: [],
+  minimumAge: "",
+  driverLicense: false,
+  otherRequirements: "",
   mileage: "",
+  rentalPrice: "",
+  description: "",
 };
 
 const validationSchema = object().shape({
-  make: string("Enter yor make").required().trim().min(2),
-  year: string("Enter yor email").required().trim(),
+  make: string("Enter yor make")
+    .required()
+    .trim()
+    .min(2, "Must be min 2 characters"),
+  year: string().required().trim().max(4).min(4, "Must be 4 characters"),
 });
 
 const steps = [
@@ -72,19 +81,27 @@ function AddAdvertForm() {
   const [file, setFile] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [errorStep, setErrorStep] = useState(false);
   const [completed, setCompleted] = useState({});
+  const [accessories, setAccessories] = useState([]);
+  const [fuelConsumption, setFuelConsumption] = useState([]);
+
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       const data = {
         img: file,
+        accessories: accessories,
+        fuelConsumption: fuelConsumption,
         ...values,
       };
       console.log(data);
     },
   });
-  const handleAvatarChange = (e) => {
+  const isError = Boolean(Object.keys(formik.errors).length);
+
+  const handleImageChange = (e) => {
     const loadedFile = e.target.files[0];
 
     if (loadedFile) {
@@ -122,6 +139,13 @@ function AddAdvertForm() {
   };
 
   const handleNext = () => {
+    if (isError) {
+      setErrorStep(true);
+      setTimeout(() => {
+        setErrorStep(false);
+      }, 2000);
+      return;
+    }
     const newActiveStep =
       isLastStep() && !allStepsCompleted()
         ? // It's the last step, but not all steps have been completed,
@@ -140,6 +164,13 @@ function AddAdvertForm() {
   };
 
   const handleComplete = () => {
+    if (isError) {
+      setErrorStep(true);
+      setTimeout(() => {
+        setErrorStep(false);
+      }, 2000);
+      return;
+    }
     const newCompleted = completed;
     newCompleted[activeStep] = true;
     setCompleted(newCompleted);
@@ -149,12 +180,44 @@ function AddAdvertForm() {
   const handleReset = () => {
     setActiveStep(0);
     setCompleted({});
+    setAccessories([]);
+    setFuelConsumption([]);
     formik.handleReset();
     handleDeleteImg();
   };
+  const handleChangeSelect = (e) => {
+    const { name, value } = e.target;
+    if (name === "accessories" && value) {
+      if (accessories.includes(value)) {
+        return;
+      }
+      setAccessories((prev) => [...prev, value]);
+    }
+    if (name === "fuelConsumption" && value) {
+      if (fuelConsumption.includes(value)) {
+        return;
+      }
+      setFuelConsumption((prev) => [...prev, value]);
+    }
+    // console.log(accessories);
+    // console.log(fuelConsumption);
+  };
+  const handleClearItem = (e) => {
+    const { id, title } = e.target;
+    if (title === "accessories") {
+      setAccessories((prev) =>
+        prev.filter((item, index) => index !== Number(id))
+      );
+    }
+    if (title === "fuelConsumption") {
+      setFuelConsumption((prev) =>
+        prev.filter((item, index) => index !== Number(id))
+      );
+    }
+  };
 
-  const stepInputList = () => {
-    switch (activeStep) {
+  const stepInputList = (step) => {
+    switch (step) {
       case 0:
         return (
           <>
@@ -173,7 +236,7 @@ function AddAdvertForm() {
                   type="file"
                   name="img"
                   label="image"
-                  onChange={handleAvatarChange}
+                  onChange={handleImageChange}
                   accept=".png, .jpg"
                 />
               </LabelAdvertImageStyle>
@@ -194,6 +257,7 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.make && Boolean(formik.errors.make)}
               helperText={formik.touched.make && formik.errors.make}
+              required
             />
             <TextField
               name="model"
@@ -205,10 +269,11 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.model && Boolean(formik.errors.model)}
               helperText={formik.touched.model && formik.errors.model}
+              required
             />
             <TextField
               name="year"
-              type="text"
+              type="number"
               label="Year"
               variant="standard"
               value={formik.values?.year}
@@ -216,6 +281,7 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.year && Boolean(formik.errors.year)}
               helperText={formik.touched.year && formik.errors.year}
+              required
             />
             <TextField
               name="type"
@@ -227,6 +293,7 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.type && Boolean(formik.errors.type)}
               helperText={formik.touched.type && formik.errors.type}
+              required
             />
             <TextField
               name="engineSize"
@@ -240,6 +307,7 @@ function AddAdvertForm() {
                 formik.touched.engineSize && Boolean(formik.errors.engineSize)
               }
               helperText={formik.touched.engineSize && formik.errors.engineSize}
+              required
             />
             <TextField
               name="functionalities"
@@ -256,14 +324,173 @@ function AddAdvertForm() {
               helperText={
                 formik.touched.functionalities && formik.errors.functionalities
               }
+              required
+            />
+            <TextField
+              name="street"
+              type="text"
+              label="Street"
+              variant="standard"
+              value={formik.values?.street}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.street && Boolean(formik.errors.street)}
+              helperText={formik.touched.street && formik.errors.street}
+              required
+            />
+            <TextField
+              name="city"
+              type="text"
+              label="City"
+              variant="standard"
+              value={formik.values?.city}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              helperText={formik.touched.city && formik.errors.city}
+              required
+            />
+            <TextField
+              name="country"
+              type="text"
+              label="Country"
+              variant="standard"
+              value={formik.values?.country}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={formik.touched.country && Boolean(formik.errors.country)}
+              helperText={formik.touched.country && formik.errors.country}
+              required
             />
           </>
         );
       case 2:
-        return <>step 2</>;
+        return (
+          <>
+            <FormControl
+              variant="standard"
+              sx={{
+                display: "flex",
+                margin: "0 auto",
+                minWidth: 600,
+              }}
+              men
+            >
+              <InputLabel id="demo-simple-select-standard-label">
+                Accessories
+              </InputLabel>
+              <Select
+                value=""
+                name="accessories"
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                onChange={handleChangeSelect}
+              >
+                <MenuItem value="" sx={{ zIndex: "999" }}>
+                  <em>None</em>
+                </MenuItem>
+                {modelList.map((model) => (
+                  <MenuItem value={model.value}>{model.label}</MenuItem>
+                ))}
+              </Select>
+              <FormSelectCheckedItemList>
+                {accessories.map((item, index) => {
+                  return (
+                    <li key={index}>
+                      {item}
+                      <ClearItemListButtonStyle
+                        type="button"
+                        onClick={handleClearItem}
+                        id={index}
+                        title="accessories"
+                      >
+                        <ClearIcon fontSize="small" />
+                      </ClearItemListButtonStyle>
+                    </li>
+                  );
+                })}
+              </FormSelectCheckedItemList>
+            </FormControl>
+            <FormControl
+              variant="standard"
+              sx={{
+                display: "flex",
+                margin: "0 auto",
+                minWidth: 600,
+              }}
+              men
+            >
+              <InputLabel id="demo-simple-select-standard-label">
+                Fuel Consumption
+              </InputLabel>
+              <Select
+                name="fuelConsumption"
+                labelId="demo-simple-select-standard-label"
+                id="demo-simple-select-standard"
+                onChange={handleChangeSelect}
+              >
+                <MenuItem value="" sx={{ zIndex: "999" }}>
+                  <em>None</em>
+                </MenuItem>
+                {modelList.map((model) => (
+                  <MenuItem value={model.value}>{model.label}</MenuItem>
+                ))}
+              </Select>
+              <FormSelectCheckedItemList>
+                {fuelConsumption.map((item, index) => {
+                  return (
+                    <li key={index}>
+                      {item}
+                      <ClearItemListButtonStyle
+                        type="button"
+                        onClick={handleClearItem}
+                        id={index}
+                        title="fuelConsumption"
+                      >
+                        <ClearIcon fontSize="small" />
+                      </ClearItemListButtonStyle>
+                    </li>
+                  );
+                })}
+              </FormSelectCheckedItemList>
+            </FormControl>
+          </>
+        );
       case 3:
         return (
           <>
+            <TextField
+              name="minimumAge"
+              type="text"
+              label="Minimum Age"
+              variant="standard"
+              value={formik.values?.minimumAge}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.minimumAge && Boolean(formik.errors.minimumAge)
+              }
+              helperText={formik.touched.minimumAge && formik.errors.minimumAge}
+              required
+            />
+            <TextField
+              name="otherRequirements"
+              type="text"
+              label="Other Requirements"
+              variant="standard"
+              value={formik.values?.otherRequirements}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.otherRequirements &&
+                Boolean(formik.errors.otherRequirements)
+              }
+              helperText={
+                formik.touched.otherRequirements &&
+                formik.errors.otherRequirements
+              }
+              required
+            />
             <TextField
               name="mileage"
               type="text"
@@ -274,6 +501,7 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.mileage && Boolean(formik.errors.mileage)}
               helperText={formik.touched.mileage && formik.errors.mileage}
+              required
             />
             <TextField
               name="rentalPrice"
@@ -289,6 +517,16 @@ function AddAdvertForm() {
               helperText={
                 formik.touched.rentalPrice && formik.errors.rentalPrice
               }
+              required
+            />
+            <FormControlLabel
+              name="driverLicense"
+              checked={formik.values?.driverLicense}
+              value={formik.values?.driverLicense}
+              control={<Checkbox />}
+              label="Driver License"
+              onChange={formik.handleChange}
+              required
             />
           </>
         );
@@ -313,6 +551,7 @@ function AddAdvertForm() {
               helperText={
                 formik.touched.description && formik.errors.description
               }
+              required
             />
           </>
         );
@@ -321,7 +560,6 @@ function AddAdvertForm() {
     }
   };
 
-  const isError = Boolean(Object.keys(formik.errors).length);
   return (
     <>
       <TitleAdvertFormStyle>Add Advert</TitleAdvertFormStyle>
@@ -330,7 +568,7 @@ function AddAdvertForm() {
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]} sx={StepStyle}>
               <StepButton
-                color={isError ? "#ffaeae" : "#aeaeff"}
+                color={!errorStep ? "#ffaeae" : "#aeaeff"}
                 onClick={handleStep(index)}
               >
                 {activeStep === index && label}
@@ -357,8 +595,8 @@ function AddAdvertForm() {
         ) : (
           <React.Fragment>
             {/* <Typography sx={{ mt: 2, mb: 1, py: 1 }}> */}
-            <AdvertDataBoxStyle>
-              {stepInputList(formik, activeStep)}
+            <AdvertDataBoxStyle id={activeStep}>
+              {stepInputList(activeStep)}
             </AdvertDataBoxStyle>
             {/* </Typography> */}
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -393,254 +631,17 @@ function AddAdvertForm() {
                       : "Complete Step"}
                   </Button>
                 ))}
+              {errorStep && (
+                <StepErrorUnderTextStyle>
+                  All fields must be filled in and correct
+                </StepErrorUnderTextStyle>
+              )}
             </Box>
           </React.Fragment>
         )}
-        {/* 
-        
-
-        <TextField
-          name="fuelConsumption"
-          type="text"
-          label="Fuel consumption"
-          variant="standard"
-          value={formik.values?.fuelConsumption}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          error={
-            formik.touched.fuelConsumption &&
-            Boolean(formik.errors.fuelConsumption)
-          }
-          helperText={
-            formik.touched.fuelConsumption && formik.errors.fuelConsumption
-          }
-        />
-         */}
-        {/* <TextField
-            name="description"
-            type="text"
-            label="Description"
-            variant="standard"
-            value={formik.values?.description}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={
-              formik.touched.description && Boolean(formik.errors.description)
-            }
-            helperText={formik.touched.description && formik.errors.description}
-          /> */}
       </Box>
     </>
   );
-  // return (
-  //   <>
-  //     <TitleAdvertFormStyle>Add Advert</TitleAdvertFormStyle>
-  //     {photo ? (
-  //       <AdvertsImageContainerStyle>
-  //         <img src={photo} alt="avto" />
-  //         <DeleteImageStyle onClick={handleDeleteImg}>
-  //           <DeleteIcon />
-  //         </DeleteImageStyle>
-  //       </AdvertsImageContainerStyle>
-  //     ) : (
-  //       <Box component="form" sx={AdvertImageFormStyle}>
-  //         <LabelAdvertImageStyle>
-  //           <LabelAdvertTextStyle>Add a photo</LabelAdvertTextStyle>
-  //           <input
-  //             type="file"
-  //             name="img"
-  //             label="image"
-  //             onChange={handleAvatarChange}
-  //             accept=".png, .jpg"
-  //           />
-  //         </LabelAdvertImageStyle>
-  //       </Box>
-  //     )}
-  //     <Box component="form" onSubmit={formik.handleSubmit} autoFocus={true}>
-  //       <AdvertDataBoxStyle>
-  //         <TextField
-  //           name="make"
-  //           type="text"
-  //           label="Make"
-  //           variant="standard"
-  //           value={formik.values?.make}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={formik.touched.make && Boolean(formik.errors.make)}
-  //           helperText={formik.touched.make && formik.errors.make}
-  //         />
-  //         <TextField
-  //           name="model"
-  //           type="text"
-  //           label="Model"
-  //           variant="standard"
-  //           value={formik.values?.model}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={formik.touched.model && Boolean(formik.errors.model)}
-  //           helperText={formik.touched.model && formik.errors.model}
-  //         />
-  //         <TextField
-  //           name="year"
-  //           type="text"
-  //           label="Year"
-  //           variant="standard"
-  //           value={formik.values?.year}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={formik.touched.year && Boolean(formik.errors.year)}
-  //           helperText={formik.touched.year && formik.errors.year}
-  //         />
-  //         <TextField
-  //           name="type"
-  //           type="text"
-  //           label="Type"
-  //           variant="standard"
-  //           value={formik.values?.type}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={formik.touched.type && Boolean(formik.errors.type)}
-  //           helperText={formik.touched.type && formik.errors.type}
-  //         />
-  //         <TextField
-  //           name="rentalPrice"
-  //           type="text"
-  //           label="Rental price"
-  //           variant="standard"
-  //           value={formik.values?.rentalPrice}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.rentalPrice && Boolean(formik.errors.rentalPrice)
-  //           }
-  //           helperText={formik.touched.rentalPrice && formik.errors.rentalPrice}
-  //         />
-  //         <TextField
-  //           name="engineSize"
-  //           type="text"
-  //           label="Engine size"
-  //           variant="standard"
-  //           value={formik.values?.engineSize}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.engineSize && Boolean(formik.errors.engineSize)
-  //           }
-  //           helperText={formik.touched.engineSize && formik.errors.engineSize}
-  //         />
-  //         <TextField
-  //           name="fuelConsumption"
-  //           type="text"
-  //           label="Fuel consumption"
-  //           variant="standard"
-  //           value={formik.values?.fuelConsumption}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.fuelConsumption &&
-  //             Boolean(formik.errors.fuelConsumption)
-  //           }
-  //           helperText={
-  //             formik.touched.fuelConsumption && formik.errors.fuelConsumption
-  //           }
-  //         />
-  //         {/* <FormControl
-  //           variant="standard"
-  //           sx={{
-  //             m: 1,
-  //             minWidth: 120,
-  //           }}
-  //           men
-  //         >
-  //           <InputLabel id="demo-simple-select-standard-label">
-  //             Model
-  //           </InputLabel> */}
-  //         {/* <Select
-  //             labelId="demo-simple-select-standard-label"
-  //             id="demo-simple-select-standard"
-  //             value={formik.values?.model}
-  //             onChange={formik.handleChange}
-  //             label="Model"
-  //           >
-  //             <MenuItem value="" sx={{ zIndex: "999" }}>
-  //               <em>None</em>
-  //             </MenuItem>
-  //             {modelList.map((model) => (
-  //               <MenuItem value={model.value}>{model.label}</MenuItem>
-  //             ))}
-  //           </Select> */}
-  //         {/* <NativeSelect
-  //             defaultValue=""
-  //             inputProps={{
-  //               name: "Model",
-  //               id: "uncontrolled-native",
-  //             }}
-  //           >
-  //             <option value=""></option>
-  //             {modelList.map((model) => (
-  //               <option value={model.value}>{model.label}</option>
-  //             ))}
-  //           </NativeSelect>
-  //         </FormControl> */}
-
-  //         <TextField
-  //           name="description"
-  //           type="text"
-  //           label="Description"
-  //           variant="standard"
-  //           value={formik.values?.description}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.description && Boolean(formik.errors.description)
-  //           }
-  //           helperText={formik.touched.description && formik.errors.description}
-  //         />
-  //         <TextField
-  //           name="description"
-  //           type="text"
-  //           label="Description"
-  //           variant="standard"
-  //           value={formik.values?.description}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.description && Boolean(formik.errors.description)
-  //           }
-  //           helperText={formik.touched.description && formik.errors.description}
-  //         />
-  //         <TextField
-  //           name="functionalities"
-  //           type="text"
-  //           label="Functionalities"
-  //           variant="standard"
-  //           value={formik.values?.functionalities}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={
-  //             formik.touched.functionalities &&
-  //             Boolean(formik.errors.functionalities)
-  //           }
-  //           helperText={
-  //             formik.touched.functionalities && formik.errors.functionalities
-  //           }
-  //         />
-  //         <TextField
-  //           name="mileage"
-  //           type="text"
-  //           label="Mileage"
-  //           variant="standard"
-  //           value={formik.values?.mileage}
-  //           onChange={formik.handleChange}
-  //           onBlur={formik.handleBlur}
-  //           error={formik.touched.mileage && Boolean(formik.errors.mileage)}
-  //           helperText={formik.touched.mileage && formik.errors.mileage}
-  //         />
-  //       </AdvertDataBoxStyle>
-  //       <Button type="submit">Create</Button>
-  //     </Box>
-  //   </>
-  // );
 }
 
 export default AddAdvertForm;
