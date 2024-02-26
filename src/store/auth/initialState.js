@@ -9,6 +9,6 @@ export const initialState = {
     favorites: [],
   },
   isLoggedIn: false,
-  isRefresh: true,
+  isRefresh: false,
   token: "",
 };

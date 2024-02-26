@@ -1,7 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { getAdvertsThunk, getFilterAdvertsThunk } from "./advertsThunk";
 import {
+  addImagesAdvertThunk,
+  createAdvertThunk,
+  getAdvertsThunk,
+  getFilterAdvertsThunk,
+} from "./advertsThunk";
+import {
+  fetchAddImageAdvertFulfilled,
+  fetchCreateAdvertsFulfilled,
   fetchGetAdvertsFulfilled,
   fetchGetFilterAdvertsFulfilled,
   resetAdvertsState,
@@ -19,6 +26,8 @@ const advertsSlice = createSlice({
     build
       .addCase(getFilterAdvertsThunk.fulfilled, fetchGetFilterAdvertsFulfilled)
       .addCase(getAdvertsThunk.fulfilled, fetchGetAdvertsFulfilled)
+      .addCase(addImagesAdvertThunk.fulfilled, fetchAddImageAdvertFulfilled)
+      .addCase(createAdvertThunk.fulfilled, fetchCreateAdvertsFulfilled)
       .addMatcher(({ type }) => type.includes("logout"), resetAdvertsState);
   },
 });

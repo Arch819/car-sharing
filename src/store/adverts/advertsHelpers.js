@@ -14,3 +14,11 @@ export const fetchGetFilterAdvertsFulfilled = (state, { payload }) => {
 export const resetAdvertsState = () => {
   return initialState;
 };
+
+export const fetchAddImageAdvertFulfilled = (state, { payload }) => {
+  console.log(payload);
+};
+
+export const fetchCreateAdvertsFulfilled = (state, { payload }) => {
+  console.log(payload);
+};

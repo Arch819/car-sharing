@@ -40,6 +40,12 @@ import {
   FormSelectCheckedItemList,
   ClearItemListButtonStyle,
 } from "./AddAdvert.styled";
+import { useDispatch } from "react-redux";
+import {
+  addImagesAdvertThunk,
+  createAdvertThunk,
+} from "store/adverts/advertsThunk";
+import { notiflixMessage } from "utils/notiflixMessages";
 
 const initialValues = {
   make: "",
@@ -47,11 +53,12 @@ const initialValues = {
   year: "",
   type: "",
   engineSize: "",
-  functionalities: "",
   street: "",
   city: "",
   country: "",
-  fuelConsumption: [],
+  rentalCompany: "",
+  fuelConsumption: "",
+  functionalities: [],
   accessories: [],
   minimumAge: "",
   driverLicense: false,
@@ -84,19 +91,47 @@ function AddAdvertForm() {
   const [errorStep, setErrorStep] = useState(false);
   const [completed, setCompleted] = useState({});
   const [accessories, setAccessories] = useState([]);
-  const [fuelConsumption, setFuelConsumption] = useState([]);
+  const [functionalities, setFunctionalities] = useState([]);
+
+  const dispatch = useDispatch();
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       const data = {
-        img: file,
+        make: values.make,
+        model: values.model,
+        year: values.year,
+        type: values.type,
+        engineSize: values.engineSize,
+        rentalCompany: values.rentalCompany,
+        fuelConsumption: values.fuelConsumption,
+        mileage: values.mileage,
+        rentalPrice: values.rentalPrice,
+        description: values.description,
+        rentalConditions: {
+          minimumAge: values.minimumAge,
+          driverLicense: values.driverLicense,
+          otherRequirements: values.otherRequirements,
+        },
+        address: {
+          street: values.street,
+          city: values.city,
+          country: values.country,
+        },
         accessories: accessories,
-        fuelConsumption: fuelConsumption,
-        ...values,
+        functionalities: functionalities,
       };
-      console.log(data);
+      dispatch(createAdvertThunk(data)).then((r) => {
+        if (r.error) {
+          notiflixMessage(
+            "error",
+            "Creating advertising is a failure. Try again later"
+          );
+        }
+        dispatch(addImagesAdvertThunk({ file, idAdvert: r.payload._id }));
+      });
     },
   });
   const isError = Boolean(Object.keys(formik.errors).length);
@@ -181,7 +216,7 @@ function AddAdvertForm() {
     setActiveStep(0);
     setCompleted({});
     setAccessories([]);
-    setFuelConsumption([]);
+    setFunctionalities([]);
     formik.handleReset();
     handleDeleteImg();
   };
@@ -193,14 +228,14 @@ function AddAdvertForm() {
       }
       setAccessories((prev) => [...prev, value]);
     }
-    if (name === "fuelConsumption" && value) {
-      if (fuelConsumption.includes(value)) {
+    if (name === "functionalities" && value) {
+      if (functionalities.includes(value)) {
         return;
       }
-      setFuelConsumption((prev) => [...prev, value]);
+      setFunctionalities((prev) => [...prev, value]);
     }
     // console.log(accessories);
-    // console.log(fuelConsumption);
+    // console.log(functionalities);
   };
   const handleClearItem = (e) => {
     const { id, title } = e.target;
@@ -209,8 +244,8 @@ function AddAdvertForm() {
         prev.filter((item, index) => index !== Number(id))
       );
     }
-    if (title === "fuelConsumption") {
-      setFuelConsumption((prev) =>
+    if (title === "functionalities") {
+      setFunctionalities((prev) =>
         prev.filter((item, index) => index !== Number(id))
       );
     }
@@ -273,7 +308,7 @@ function AddAdvertForm() {
             />
             <TextField
               name="year"
-              type="number"
+              type="text"
               label="Year"
               variant="standard"
               value={formik.values?.year}
@@ -310,19 +345,19 @@ function AddAdvertForm() {
               required
             />
             <TextField
-              name="functionalities"
+              name="fuelConsumption"
               type="text"
-              label="Functionalities"
+              label="Fuel Consumption"
               variant="standard"
-              value={formik.values?.functionalities}
+              value={formik.values?.fuelConsumption}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
-                formik.touched.functionalities &&
-                Boolean(formik.errors.functionalities)
+                formik.touched.fuelConsumption &&
+                Boolean(formik.errors.fuelConsumption)
               }
               helperText={
-                formik.touched.functionalities && formik.errors.functionalities
+                formik.touched.fuelConsumption && formik.errors.fuelConsumption
               }
               required
             />
@@ -360,6 +395,23 @@ function AddAdvertForm() {
               onBlur={formik.handleBlur}
               error={formik.touched.country && Boolean(formik.errors.country)}
               helperText={formik.touched.country && formik.errors.country}
+              required
+            />
+            <TextField
+              name="rentalCompany"
+              type="text"
+              label="Rental Company"
+              variant="standard"
+              value={formik.values?.rentalCompany}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={
+                formik.touched.rentalCompany &&
+                Boolean(formik.errors.rentalCompany)
+              }
+              helperText={
+                formik.touched.rentalCompany && formik.errors.rentalCompany
+              }
               required
             />
           </>
@@ -424,7 +476,7 @@ function AddAdvertForm() {
                 Fuel Consumption
               </InputLabel>
               <Select
-                name="fuelConsumption"
+                name="functionalities"
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
                 onChange={handleChangeSelect}
@@ -437,7 +489,7 @@ function AddAdvertForm() {
                 ))}
               </Select>
               <FormSelectCheckedItemList>
-                {fuelConsumption.map((item, index) => {
+                {functionalities.map((item, index) => {
                   return (
                     <li key={index}>
                       {item}
@@ -445,7 +497,7 @@ function AddAdvertForm() {
                         type="button"
                         onClick={handleClearItem}
                         id={index}
-                        title="fuelConsumption"
+                        title="functionalities"
                       >
                         <ClearIcon fontSize="small" />
                       </ClearItemListButtonStyle>
