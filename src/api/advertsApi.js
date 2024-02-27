@@ -16,8 +16,8 @@ export const fetchCreateAdverts = async (bodyData) => {
 };
 
 export const fetchAddImagesAdvert = async (formData, idAdvert) => {
-  const { date } = await axios.post(`adverts/img/${idAdvert}`, formData, {
+  const { data } = await axios.patch(`adverts/${idAdvert}`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
-  return date;
+  return data;
 };

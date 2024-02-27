@@ -104,6 +104,7 @@ function AddAdvertForm() {
         model: values.model,
         year: values.year,
         type: values.type,
+        img: "",
         engineSize: values.engineSize,
         rentalCompany: values.rentalCompany,
         fuelConsumption: values.fuelConsumption,

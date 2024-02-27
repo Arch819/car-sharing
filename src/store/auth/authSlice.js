@@ -25,7 +25,13 @@ const authSlice = createSlice({
       .addCase(logoutThunk.pending, logoutThunkPending)
       .addCase(logoutThunk.fulfilled, logoutThunkFulfilled)
       .addCase(refreshThunk.pending, refreshThunkPending)
-      .addCase(refreshThunk.fulfilled, refreshThunkFulfilled);
+      .addCase(refreshThunk.fulfilled, refreshThunkFulfilled)
+      .addMatcher(
+        ({ type }) => type.endsWith("/rejected"),
+        (state) => {
+          state.isRefresh = false;
+        }
+      );
   },
 });
 
