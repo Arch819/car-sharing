@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import sprite from "../../images/sprite.svg";
 import { selectProfile } from "store/auth/authSelectors";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,8 +24,12 @@ function Profile({ closeModal }) {
   const [avatar, setAvatar] = useState(useSelector(selectProfile).avatar);
 
   const dispatch = useDispatch();
-  const { name, email, createdAt, createdAdverts, favorites } =
-    useSelector(selectProfile);
+  const {
+    name,
+    email,
+    createdAt,
+    // createdAdverts, favorites
+  } = useSelector(selectProfile);
 
   const normalizedDate = format(createdAt, "dd-MM-yyyy");
 
@@ -76,7 +80,7 @@ function Profile({ closeModal }) {
         <InfoUserItemStyle>
           <p>Created user: {normalizedDate}</p>
         </InfoUserItemStyle>
-        <InfoUserItemStyle>
+        {/* <InfoUserItemStyle>
           <p>
             Added adv:{" "}
             <Link to="/createdadv" onClick={closeModal}>
@@ -91,7 +95,7 @@ function Profile({ closeModal }) {
               {favorites.length}
             </Link>
           </p>
-        </InfoUserItemStyle>
+        </InfoUserItemStyle> */}
       </InfoUserListStyle>
     </ProfileBoxStyle>
   );

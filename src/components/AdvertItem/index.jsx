@@ -9,7 +9,12 @@ import {
 } from "../../store/favorites/favoritesSlice";
 import { selectFavorites } from "../../store/favorites/favoritesSelector";
 import { searchIsFavorite } from "../../utils/searchIsFavorite";
+import ModalAdvert from "components/Modal/ModalAdvert";
+
+import AdvertsTools from "components/AdvartsTools";
+import { selectProfile } from "store/auth/authSelectors";
 import {
+  AdvertItemStyled,
   BottomTextItemStyle,
   BottomTextListStyle,
   BottomTextStyle,
@@ -20,28 +25,21 @@ import {
   ItemPriceStyle,
   TopTextStyle,
 } from "./AdvertItem.styled";
-import ModalAdvert from "components/Modal/ModalAdvert";
 
 function CarItem({ data }) {
   const [modal, setModal] = useState(false);
   const [favorite, setFavorite] = useState(false);
+
   const dispatch = useDispatch();
   const isFavorite = useSelector(selectFavorites);
+  const { role } = useSelector(selectProfile);
 
   useEffect(() => {
     searchIsFavorite(isFavorite, data.id, setFavorite);
   }, [data.id, isFavorite]);
 
-  const {
-    year,
-    model,
-    make,
-    type,
-    img,
-    rentalPrice,
-    address,
-    rentalCompany,
-  } = data;
+  const { year, model, make, type, img, rentalPrice, address, rentalCompany } =
+    data;
 
   const handleModalToggle = useCallback(() => {
     setModal((prev) => !prev);
@@ -58,11 +56,11 @@ function CarItem({ data }) {
   }, [dispatch, favorite, data]);
 
   return (
-    <li>
+    <AdvertItemStyled>
       <ImageBoxStyle>
         <img src={img} alt={model} width={400} />
         <HeartBtnStyle onClick={handleAddFavorite}>
-          <HeartBtnSvgStyle width={18} height={18} $isFavorite={favorite}>
+          <HeartBtnSvgStyle width={24} height={24} $isFavorite={favorite}>
             <use href={`${sprite}#icon-active`}></use>
           </HeartBtnSvgStyle>
         </HeartBtnStyle>
@@ -89,12 +87,13 @@ function CarItem({ data }) {
           Learn more
         </ItemLearnMoreBtn>
       </div>
+      {role === "admin" && <AdvertsTools />}
       {modal && (
         <Modal closeModal={handleModalToggle}>
           <ModalAdvert data={data} closeModal={handleModalToggle} />
         </Modal>
       )}
-    </li>
+    </AdvertItemStyled>
   );
 }
 

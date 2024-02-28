@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+export const AdvertItemStyled = styled.li`
+  position: relative;
+`;
+
 export const ImageBoxStyle = styled("div")({
   width: "274px",
   height: "268px",
@@ -17,7 +21,7 @@ export const HeartBtnStyle = styled("button")({
 });
 
 export const HeartBtnSvgStyle = styled("svg")((props) => ({
-  width: "18px",
+  width: "24px",
   height: "18px",
   stroke: props.$isFavorite ? "var(--fill-color)" : "var(--stroke-color)",
   fill: props.$isFavorite ? "var(--fill-color)" : "none",
