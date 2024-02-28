@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/car-sharing/static/css/main.ac729d48.css",
-    "main.js": "/car-sharing/static/js/main.2b717adf.js",
+    "main.js": "/car-sharing/static/js/main.032cd67f.js",
     "static/media/source.png": "/car-sharing/static/media/source.8f74582bbc528af1dc8b.png",
     "static/media/Manrope-Regular.ttf": "/car-sharing/static/media/Manrope-Regular.892a89f7015e492f6e21.ttf",
     "static/media/Manrope-Medium.ttf": "/car-sharing/static/media/Manrope-Medium.101a50f661e51b761ca1.ttf",
@@ -16,10 +16,10 @@
     "static/media/sprite.svg": "/car-sharing/static/media/sprite.4b175eac07b4c198f8074fdd71fab0f4.svg",
     "index.html": "/car-sharing/index.html",
     "main.ac729d48.css.map": "/car-sharing/static/css/main.ac729d48.css.map",
-    "main.2b717adf.js.map": "/car-sharing/static/js/main.2b717adf.js.map"
+    "main.032cd67f.js.map": "/car-sharing/static/js/main.032cd67f.js.map"
   },
   "entrypoints": [
     "static/css/main.ac729d48.css",
-    "static/js/main.2b717adf.js"
+    "static/js/main.032cd67f.js"
   ]
 }
