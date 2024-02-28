@@ -7,5 +7,7 @@ export const initialState = {
     rentalPrice: null,
     mileageFrom: null,
     mileageTo: null,
+    owner: false,
   },
+  favorites: [],
 };

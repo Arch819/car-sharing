@@ -5,8 +5,6 @@ export const initialState = {
     avatar: "",
     role: "",
     createdAt: "",
-    createdAdverts: [],
-    favorites: [],
   },
   isLoggedIn: false,
   isRefresh: false,
