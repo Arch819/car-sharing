@@ -3,12 +3,14 @@ import { initialState } from "./initialState";
 import {
   addImagesAdvertThunk,
   createAdvertThunk,
+  deleteAdvertThunk,
   getAdvertsThunk,
   getFilterAdvertsThunk,
 } from "./advertsThunk";
 import {
   fetchAddImageAdvertFulfilled,
   fetchCreateAdvertsFulfilled,
+  fetchDeleteAdFulfilled,
   fetchGetAdvertsFulfilled,
   fetchGetFilterAdvertsFulfilled,
   resetAdvertsState,
@@ -28,6 +30,7 @@ const advertsSlice = createSlice({
       .addCase(getAdvertsThunk.fulfilled, fetchGetAdvertsFulfilled)
       .addCase(addImagesAdvertThunk.fulfilled, fetchAddImageAdvertFulfilled)
       .addCase(createAdvertThunk.fulfilled, fetchCreateAdvertsFulfilled)
+      .addCase(deleteAdvertThunk.fulfilled, fetchDeleteAdFulfilled)
       .addMatcher(({ type }) => type.includes("logout"), resetAdvertsState);
   },
 });

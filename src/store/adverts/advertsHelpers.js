@@ -22,3 +22,7 @@ export const fetchAddImageAdvertFulfilled = (state, { payload }) => {
 export const fetchCreateAdvertsFulfilled = (state, { payload }) => {
   console.log(payload);
 };
+
+export const fetchDeleteAdFulfilled = (state, { payload }) => {
+  state.adverts = state.adverts.filter((ad) => ad._id !== payload);
+};

@@ -21,3 +21,7 @@ export const fetchAddImagesAdvert = async (formData, idAdvert) => {
   });
   return data;
 };
+
+export const fetchDeleteAdvert = async (idAdvert) => {
+  return await axios.delete(`adverts/${idAdvert}`);
+};

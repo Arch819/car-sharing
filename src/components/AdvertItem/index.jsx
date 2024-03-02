@@ -38,8 +38,17 @@ function CarItem({ data }) {
     searchIsFavorite(isFavorite, data.id, setFavorite);
   }, [data.id, isFavorite]);
 
-  const { year, model, make, type, img, rentalPrice, address, rentalCompany } =
-    data;
+  const {
+    _id,
+    year,
+    model,
+    make,
+    type,
+    img,
+    rentalPrice,
+    address,
+    rentalCompany,
+  } = data;
 
   const handleModalToggle = useCallback(() => {
     setModal((prev) => !prev);
@@ -87,7 +96,7 @@ function CarItem({ data }) {
           Learn more
         </ItemLearnMoreBtn>
       </div>
-      {role === "admin" && <AdvertsTools />}
+      {role === "admin" && <AdvertsTools idAdvert={_id} />}
       {modal && (
         <Modal closeModal={handleModalToggle}>
           <ModalAdvert data={data} closeModal={handleModalToggle} />

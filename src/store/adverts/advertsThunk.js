@@ -1,11 +1,15 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import api from "../../api";
-import { fetchAddImagesAdvert, fetchCreateAdverts } from "api/advertsApi";
 
-const { fetchGetAdverts } = api.advertsApi;
+const {
+  fetchGetAdverts,
+  fetchCreateAdverts,
+  fetchAddImagesAdvert,
+  fetchDeleteAdvert,
+} = api.advertsApi;
 
 export const getAdvertsThunk = createAsyncThunk(
-  "adverts/fetch",
+  "adverts/getAll",
   async (params, { rejectWithValue }) => {
     try {
       const data = await fetchGetAdverts(params);
@@ -17,7 +21,7 @@ export const getAdvertsThunk = createAsyncThunk(
 );
 
 export const getFilterAdvertsThunk = createAsyncThunk(
-  "filterAdverts/fetch",
+  "adverts/getByFilter",
   async (params, { rejectWithValue }) => {
     try {
       const transformParams = {
@@ -34,7 +38,7 @@ export const getFilterAdvertsThunk = createAsyncThunk(
 );
 
 export const createAdvertThunk = createAsyncThunk(
-  "adverts/create",
+  "adverts/createAd",
   async (bodyData, { rejectWithValue }) => {
     try {
       const data = await fetchCreateAdverts(bodyData);
@@ -52,6 +56,18 @@ export const addImagesAdvertThunk = createAsyncThunk(
       const formData = new FormData();
       formData.append("advert", file);
       return await fetchAddImagesAdvert(formData, idAdvert);
+    } catch (error) {
+      return rejectWithValue(error.response.data.message);
+    }
+  }
+);
+
+export const deleteAdvertThunk = createAsyncThunk(
+  "adverts/deleteAd",
+  async (idAdvert, { rejectWithValue }) => {
+    try {
+      await fetchDeleteAdvert(idAdvert);
+      return idAdvert;
     } catch (error) {
       return rejectWithValue(error.response.data.message);
     }
