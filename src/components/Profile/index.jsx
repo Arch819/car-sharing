@@ -24,12 +24,8 @@ function Profile({ closeModal }) {
   const [avatar, setAvatar] = useState(useSelector(selectProfile).avatar);
 
   const dispatch = useDispatch();
-  const {
-    name,
-    email,
-    createdAt,
-    createdAdverts, favorites
-  } = useSelector(selectProfile);
+  const { name, email, createdAt, createdAdverts, favorites } =
+    useSelector(selectProfile);
 
   const normalizedDate = format(createdAt, "dd-MM-yyyy");
 

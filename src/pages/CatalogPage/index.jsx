@@ -7,6 +7,7 @@ import Filters from "../../components/Filters";
 import CarsList from "../../components/AdvertsList";
 import { LoadMoreBtn } from "./CatalogPage.styled";
 import { Notify } from "notiflix";
+import TitlePage from "components/TitlePage";
 
 function CatalogPage() {
   const [page, setPage] = useState(1);
@@ -27,6 +28,7 @@ function CatalogPage() {
   return (
     <Section>
       <div className="container">
+        <TitlePage text="Adverts" mb={60} />
         <Filters />
         <CarsList adverts={adverts} />
         {totalPage > 1 && page < totalPage && (

@@ -8,10 +8,3 @@ export const AddAdvertContainerStyle = styled.div`
     right: 30px;
   }
 `;
-
-export const AddAdvertTitle = styled.h2`
-  margin-bottom: 60px;
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 1.1;
-`;

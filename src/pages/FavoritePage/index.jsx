@@ -3,8 +3,8 @@ import { selectFavorites } from "store/favorites/favoritesSelector";
 import Section from "../../components/Section";
 import CarsList from "components/AdvertsList";
 import EmptyMessage from "components/EmptyMessage";
-import { FavoriteTitleStyle } from "./FavoritePage.styled";
 import { HomeBtnStyle } from "pages/HomePage/Home.styled";
+import TitlePage from "components/TitlePage";
 
 function FavoritePage() {
   const favorites = useSelector(selectFavorites);
@@ -12,7 +12,7 @@ function FavoritePage() {
   return (
     <Section>
       <div className="container">
-        <FavoriteTitleStyle>Favorite</FavoriteTitleStyle>
+        <TitlePage text="Favorite" fs={36} mb={50} />
         {favorites.length > 0 ? (
           <CarsList adverts={favorites} />
         ) : (
